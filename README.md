@@ -1,5 +1,6 @@
 ## Proyecto Semestral - Programación II.
 Tema 4: Pizarra para hacer clases web.
+Eduardo Parra __ Matias Escobar __ Tomas *
 # Enunciado general del proyecto: 
 Se debe crear una pizarra múltiple que permita dibujar trazos, rectángulos, y conectores UML con mouseDrag.
 La pizarra debe modos de edición tales como borrar, y crear las diferentes formas de UML.
