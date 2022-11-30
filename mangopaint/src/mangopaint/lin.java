@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Panel extends JPanel
+public class lin extends JPanel    //lin for LIENZO
 {
   // PROPERTIES
   private final int DEFAULT_WIDTH  = 800;
@@ -24,7 +24,7 @@ public class Panel extends JPanel
   private Graphics g;
 
   // CONSTRUCTOR
-  public Panel()
+  public lin()
   {
     setBackground( BACK_COLOR );
     setPreferredSize( new Dimension( DEFAULT_WIDTH, DEFAULT_HEIGHT ) );
