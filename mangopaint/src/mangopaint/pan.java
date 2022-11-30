@@ -4,8 +4,10 @@
  */
 package mangopaint;
 
+
 import javax.swing.*;
 import java.awt.*;
+import static java.awt.BorderLayout.WEST;
 import static java.awt.Color.*;
 /**
  *
@@ -14,18 +16,32 @@ import static java.awt.Color.*;
 public class pan extends JPanel{
     
     public pan(){
-        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        FlowLayout flow = new FlowLayout(3);
+        this.setLayout(flow);
         this.setBackground(BLUE);
         
         
         spa spa1 = new spa();
         spa spa2 = new spa();  //Creacion de Secondary PAnels
-        
+        spa spaM = new spa();
        
         
-        add(spa1);   //Panel Secundario 1
+       
+        spa1.setSize(40,50);
+        flow.setHgap(20);
+        add(spa1);   //Panel Secundario 1   //Si dan problemas dar vuelta el add !
         spa1.add(new JButton("transformation") );
         spa1.add(new JButton("center"));
+        
+        
+        add(spaM);
+        spaM.setLayout(new GridLayout(3,2));
+        spaM.add(new JButton("UML"));
+        spaM.add(new JButton("Pint"));
+        spaM.add(new JButton("Borr"));
+        spaM.add(new JButton("Selc"));
+        spaM.add(new JButton("Math"));
+        spaM.add(new JButton("Rule"));
         
         
         

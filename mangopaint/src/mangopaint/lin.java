@@ -14,8 +14,8 @@ import javax.swing.*;
 public class lin extends JPanel    //lin for LIENZO
 {
   // PROPERTIES
-  private final int DEFAULT_WIDTH  = 800;
-  private final int DEFAULT_HEIGHT = 800;
+  private final int DEFAULT_WIDTH  = 1200;
+  private final int DEFAULT_HEIGHT = 600;
   private final Color BACK_COLOR   = Color.WHITE;
 
   private int x1, y1, x2, y2;

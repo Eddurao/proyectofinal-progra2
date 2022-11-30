@@ -22,7 +22,7 @@ public class JF extends JFrame {
         add(new lin(),BorderLayout.CENTER);
         
         
-        setSize(800,600); // setSize va al final porque ponerlo al principi causa leves errores
+        setSize(1200,600); // setSize va al final porque ponerlo al principi causa leves errores
     }
     
     
