@@ -11,6 +11,20 @@ import static java.awt.BorderLayout.WEST;
 import static java.awt.Color.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ByteLookupTable;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
+import java.awt.image.LookupOp;
+import java.io.File;
+import java.io.IOException;
+import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 
 /**
@@ -22,6 +36,8 @@ import java.awt.event.ActionListener;
 public class pan extends JPanel implements ActionListener{
     
     JF VIP;
+    
+   
     
     JButton Buml;
     JButton Bpint;
@@ -42,7 +58,10 @@ public class pan extends JPanel implements ActionListener{
     JButton blanco;       
     JButton griso;       
     JButton grisc;       
-    JButton rosado;       
+    JButton rosado; 
+    
+    JButton Ariel;
+    JButton Bsave;
             
             
     spa spaUML;     //PANELES SECUNDARIOS APARECIBLES
@@ -58,13 +77,16 @@ public class pan extends JPanel implements ActionListener{
         this.setLayout(flow);                      //CONFIG PRINCIPANEL
         this.setBackground(ORANGE);
         
-        
+       
+        Bsave = new JButton("SAVE");
+                
         Buml = new JButton("UML"); Buml.setBackground(CYAN);
         Bpint = new JButton("Pint");   Bpint.setBackground(YELLOW);   //INIC JBUTTONS INIMENU
         Bborr = new JButton("Borr");   Bborr.setBackground(GRAY);
         Bselc = new JButton("Selc");   Bselc.setBackground(WHITE);
         Bmath = new JButton("Math");   Bmath.setBackground(BLUE);
         Brule = new JButton("Rule");   Brule.setBackground(GREEN);
+        
         
         rojo = new JButton(" "); rojo.setBackground(red);
         naranjo = new JButton(" "); naranjo.setBackground(orange);
@@ -81,12 +103,29 @@ public class pan extends JPanel implements ActionListener{
         rosado = new JButton(" "); rosado.setBackground(pink);
         
         
+        
+        
+  
+        
+        
+        
+        
+       
+        
+        
+        
+        
+        
+        
+        
         Buml.addActionListener(this);
         Bpint.addActionListener(this);
         Bborr.addActionListener(this);
         Bselc.addActionListener(this);
         Bmath.addActionListener(this);
         Brule.addActionListener(this);
+        
+        
         
         rojo.addActionListener(this);
         naranjo.addActionListener(this);
@@ -101,7 +140,7 @@ public class pan extends JPanel implements ActionListener{
         rosado.addActionListener(this);
         gris.addActionListener(this);
         
-        
+        Bsave.addActionListener(this);
         
         
         
@@ -134,7 +173,7 @@ public class pan extends JPanel implements ActionListener{
         spaPINT.add(P1);
         P1.add(rojo);
         P1.add(new JButton("petroleo"));
-        P1.add(new JButton("chile"));
+        P1.add(Bsave);
         
         spa P2 = new spa();
         P2.setAlignmentX(2f);
@@ -143,8 +182,10 @@ public class pan extends JPanel implements ActionListener{
         P2.add(new JButton("persom"));
         P2.add(new JButton("perrito"));
         tlis P3 = new tlis(2,1);
-        spaPINT.add(P3);               //tenemos un grave ERROR !!! REPAINT EN EL LIENZO
-        P3.add(new JButton("hello"));
+        spaPINT.add(P3);   
+        Ariel = new JButton("Rbow");
+        Ariel.addActionListener(this);                      //tenemos un grave ERROR !!! REPAINT EN EL LIENZO
+        P3.add(Ariel);
         P3.add(new JButton("no"));
         //P3.add(new JButton("hello"));
         
@@ -218,6 +259,10 @@ public class pan extends JPanel implements ActionListener{
     }
     
     
+     static int opIndex;
+  void setOpIndex(int i) {
+        opIndex = i;
+    }
     
     
     
@@ -256,14 +301,15 @@ public class pan extends JPanel implements ActionListener{
          if(e.getSource() == blanco){VIP.hj.tarro = Color.white;}
          if(e.getSource() == rosado){VIP.hj.tarro = Color.pink;}
          
+         if(e.getSource() == Ariel){ lin.Multi = !lin.Multi; lin.tarro = Color.black;}
+         
+         if(e.getSource() == Bsave){ VIP.hj.SaveImage();}
+
          
          
          
          
-         
-         
-         
-     }
+     
     
     
     
@@ -315,8 +361,15 @@ class fvi extends JFrame{
         setVisible(true);
         
         
-    }
-    
-    
-    
+    }}
+
+
 }
+
+
+
+
+
+
+
+
