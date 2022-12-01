@@ -12,14 +12,18 @@ import java.awt.*;
  */
 public class JF extends JFrame {
     
+    pan pc;
+    lin hj;
     public JF(){
         super();
         setVisible(true);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(3);
         
-        add(new pan(),BorderLayout.NORTH);
-        add(new lin(),BorderLayout.CENTER);
+        pc = new pan(this);
+        hj = new lin();
+        add(pc ,BorderLayout.NORTH);
+        add(hj ,BorderLayout.CENTER);
         
         
         setSize(1200,600); // setSize va al final porque ponerlo al principi causa leves errores
