@@ -12,6 +12,7 @@ import static java.awt.Color.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  *
  * @author eparr
@@ -27,7 +28,22 @@ public class pan extends JPanel implements ActionListener{
     JButton Bborr;
     JButton Bselc;
     JButton Bmath;
-    JButton Brule;
+    JButton Brule; 
+    
+    JButton rojo;
+    JButton naranjo;
+    JButton amarillo;
+    JButton verde;
+    JButton azul;
+    JButton morado;
+            
+    JButton negro;       
+    JButton gris;       
+    JButton blanco;       
+    JButton griso;       
+    JButton grisc;       
+    JButton rosado;       
+            
             
     spa spaUML;     //PANELES SECUNDARIOS APARECIBLES
     spa spaPINT;
@@ -50,6 +66,21 @@ public class pan extends JPanel implements ActionListener{
         Bmath = new JButton("Math");   Bmath.setBackground(BLUE);
         Brule = new JButton("Rule");   Brule.setBackground(GREEN);
         
+        rojo = new JButton(" "); rojo.setBackground(red);
+        naranjo = new JButton(" "); naranjo.setBackground(orange);
+        amarillo = new JButton(" "); amarillo.setBackground(YELLOW);
+        verde = new JButton(" "); verde.setBackground(GREEN);
+        azul = new JButton(" "); azul.setBackground(BLUE);
+        morado = new JButton(" "); morado.setBackground(magenta);
+        
+        negro = new JButton(" "); negro.setBackground(black);
+        gris = new JButton(" "); gris.setBackground(gray);
+        blanco = new JButton(" "); blanco.setBackground(white);
+        griso = new JButton(" "); griso.setBackground(darkGray);
+        grisc = new JButton(" "); grisc.setBackground(lightGray);
+        rosado = new JButton(" "); rosado.setBackground(pink);
+        
+        
         Buml.addActionListener(this);
         Bpint.addActionListener(this);
         Bborr.addActionListener(this);
@@ -57,7 +88,18 @@ public class pan extends JPanel implements ActionListener{
         Bmath.addActionListener(this);
         Brule.addActionListener(this);
         
-        
+        rojo.addActionListener(this);
+        naranjo.addActionListener(this);
+        amarillo.addActionListener(this);
+        verde.addActionListener(this);
+        azul.addActionListener(this);
+        morado.addActionListener(this);
+        negro.addActionListener(this);
+        blanco.addActionListener(this);
+        grisc.addActionListener(this);
+        griso.addActionListener(this);
+        rosado.addActionListener(this);
+        gris.addActionListener(this);
         
         
         
@@ -83,6 +125,53 @@ public class pan extends JPanel implements ActionListener{
         spaUML.add(new JButton("VEANME"));
         spaUML.add(new JButton("VEANME"));
         spaUML.add(new JButton("VEANME"));
+        
+        spaPINT.setBackground(BLUE);
+        spaPINT.setLayout(new FlowLayout(3));
+        FlowLayout fint = (FlowLayout) spaPINT.getLayout();
+        fint.setHgap(20);
+        spa P1 = new spa();
+        spaPINT.add(P1);
+        P1.add(rojo);
+        P1.add(new JButton("petroleo"));
+        P1.add(new JButton("chile"));
+        
+        spa P2 = new spa();
+        P2.setAlignmentX(2f);
+        P2.setAlignmentY(3);
+        spaPINT.add(P2);
+        P2.add(new JButton("persom"));
+        P2.add(new JButton("perrito"));
+        tlis P3 = new tlis(2,1);
+        spaPINT.add(P3);               //tenemos un grave ERROR !!! REPAINT EN EL LIENZO
+        P3.add(new JButton("hello"));
+        P3.add(new JButton("no"));
+        //P3.add(new JButton("hello"));
+        
+        
+        tlis paletaColor = new tlis(2,6);
+        paletaColor.add(rojo);
+        paletaColor.add(naranjo);
+        paletaColor.add(amarillo);
+        paletaColor.add(verde);
+        paletaColor.add(azul);
+        paletaColor.add(morado);
+        paletaColor.add(negro);
+        paletaColor.add(griso);
+        paletaColor.add(gris);
+        paletaColor.add(grisc);
+        paletaColor.add(blanco);
+        paletaColor.add(rosado);
+        spaPINT.add(paletaColor);
+        
+       
+        
+        
+        
+        
+        //spaPINT.add(new JButton());
+       // spaPINT.add(new JButton());     
+        
 
 
 
@@ -137,16 +226,35 @@ public class pan extends JPanel implements ActionListener{
     
      public  void actionPerformed(ActionEvent e){
          
+         if(e.getSource() == Buml || e.getSource() == Bpint || e.getSource() == Bborr || e.getSource() == Bselc || 
+                 e.getSource() == Bmath || e.getSource() == Brule ){
          remove(spaUML);
          remove(spaPINT);
          remove(spaBORR);
          remove(spaSELC);
          remove(spaMATH);
          remove(spaRULE);
-         VIP.repaint();
+         repaint();
+     }
+         if(e.getSource() == Buml){ add(spaUML); System.out.println("fff"); revalidate();}
+         if(e.getSource() == Bpint){ add(spaPINT); System.out.println("faf"); revalidate();}
+         if(e.getSource() == Bborr){ add(spaBORR); System.out.println("fff"); revalidate();}
+         if(e.getSource() == Bselc){ add(spaSELC); System.out.println("fff"); revalidate();}
+         if(e.getSource() == Bmath){ add(spaMATH); System.out.println("fff"); revalidate();}
+         if(e.getSource() == Brule){ add(spaRULE); System.out.println("fff"); revalidate();}
          
-         if(e.getSource() == Buml){ add(spaUML); System.out.println("fff"); VIP.revalidate();}
-         
+         if(e.getSource() == rojo){VIP.hj.tarro = Color.red;}
+         if(e.getSource() == naranjo){VIP.hj.tarro = Color.orange;}
+         if(e.getSource() == amarillo){VIP.hj.tarro = Color.yellow;}
+         if(e.getSource() == verde){VIP.hj.tarro = Color.green;}
+         if(e.getSource() == azul){VIP.hj.tarro = Color.blue;}
+         if(e.getSource() == morado){VIP.hj.tarro = Color.magenta;}
+         if(e.getSource() == negro){VIP.hj.tarro = Color.black;}
+         if(e.getSource() == griso){VIP.hj.tarro = Color.darkGray;}
+         if(e.getSource() == gris){VIP.hj.tarro = Color.gray;}
+         if(e.getSource() == grisc){VIP.hj.tarro = Color.lightGray;}
+         if(e.getSource() == blanco){VIP.hj.tarro = Color.white;}
+         if(e.getSource() == rosado){VIP.hj.tarro = Color.pink;}
          
          
          
@@ -167,6 +275,8 @@ public class pan extends JPanel implements ActionListener{
 
 class spa extends JPanel {
     
+    JButton JB;
+    
     public spa(){
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         
@@ -176,8 +286,36 @@ class spa extends JPanel {
     }
     
     
+    public void setButton(JButton TT){
+        
+        this.JB = TT;
+        JB.setBounds(600,5,20,20);
+        add(JB);
+    }
     
     
+    
+    
+}
+
+class tlis extends JPanel{
+
+   public tlis(int FILA,int COLU){
+     
+    setLayout(new GridLayout(FILA,COLU));
+
+
+
+   }
+}
+
+class fvi extends JFrame{
+    
+    public fvi(){
+        setVisible(true);
+        
+        
+    }
     
     
     

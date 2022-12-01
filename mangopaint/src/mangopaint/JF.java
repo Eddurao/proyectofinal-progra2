@@ -24,6 +24,7 @@ public class JF extends JFrame {
         hj = new lin();
         add(pc ,BorderLayout.NORTH);
         add(hj ,BorderLayout.CENTER);
+        hj.setIgnoreRepaint(false);
         
         
         setSize(1200,600); // setSize va al final porque ponerlo al principi causa leves errores

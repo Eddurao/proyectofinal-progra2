@@ -8,3 +8,7 @@ Para eliminar se busca el elemento que contenga los pixeles encerrados por un re
 La pizarra múltiple consiste en tener en el panel central una de ellas a la vez, pudiendo cambiar de una a otra sin perder lo editado.
 Se debe poder grabar en archivo la pizarra múltiple y cargarla de este. se debe poder borrar la pizarra completa.
 La pizarra múltiple se debe grabar en el archivo automáticamente al cambiar de una pizarra a otra. Se debe poder elegir el color de las líneas mediante botones GUI.
+
+
+ERROR FATAL: cualquier evento que provoque una actualizacion Eliminara
+todos los trazos dibujados en el Lienzo.

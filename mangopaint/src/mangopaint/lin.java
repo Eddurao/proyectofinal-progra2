@@ -24,6 +24,7 @@ public class lin extends JPanel    //lin for LIENZO
   private Graphics g;
 
   // CONSTRUCTOR
+  Color tarro;
   public lin()
   {
     setBackground( BACK_COLOR );
@@ -68,7 +69,8 @@ public class lin extends JPanel    //lin for LIENZO
       y1 = e.getY();
 
       System.out.println("" + x1 + " Y: " + y1);  
-
+      
+      g.setColor(tarro);
       g.drawLine(x1,y1,x2,y2);
 
       x2=x1;
