@@ -14,16 +14,21 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import static java.lang.String.format;
+import java.util.ArrayList;
 import javax.swing.*;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
+import java.util.*;
 
 
 public class lin extends JPanel    //lin for LIENZO
 {
   // PROPERTIES 
        //drawea botones
+     ArrayList<Integer> REC;
+     int CONTADOREC;
+    
   public Graphics g;
   private final int DEFAULT_WIDTH  = 1200;
   private final int DEFAULT_HEIGHT = 600;
@@ -36,8 +41,12 @@ public class lin extends JPanel    //lin for LIENZO
    
   // CONSTRUCTOR
   static Color tarro;   static boolean Multi;
-  public lin()
-  { Multi = false;
+  public lin(){
+      CONTADOREC = 0;
+     REC = new ArrayList();
+      
+      
+      Multi = false;
     setBackground( BACK_COLOR ); //
     setPreferredSize( new Dimension( DEFAULT_WIDTH, DEFAULT_HEIGHT ) );
 
@@ -51,7 +60,14 @@ public class lin extends JPanel    //lin for LIENZO
   public void paintComponent(Graphics g)
   {
     super.paintComponent(g);
-  }
+    
+   for(int id=0; id < REC.size() ;id += 2){ //Aa 
+    g.drawLine((int)(REC.get(id))/10000, (REC.get(id))%10000, (int)(REC.get(id+1))/10000, (REC.get(id+1))%10000);
+  
+   
+   }//aa
+   
+   }
 
           //HH System.out.println("SAVETHEQUEEN");
   int opIndex;
@@ -192,8 +208,8 @@ public BufferedImage createImage(JPanel panel) {
     public void mouseDragged( MouseEvent e )
     {
       x1 = e.getX();
-      y1 = e.getY();
-
+      y1 = e.getY();        
+      REC.add(x1*10000 + y1);  REC.add(x2*10000 + y2);
       System.out.println("" + x1 + " Y: " + y1);  
       
       g.setColor(tarro);
@@ -206,6 +222,8 @@ public BufferedImage createImage(JPanel panel) {
       if(Multi){LGBT();}
       x2=x1;
       y2=y1;
+     
+      
     }
   }
 }

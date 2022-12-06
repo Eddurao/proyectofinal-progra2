@@ -60,6 +60,18 @@ public class pan extends JPanel implements ActionListener{
     JButton grisc;       
     JButton rosado; 
     
+    
+    
+    JButton l;  
+    JButton fi;
+    JButton fg;
+    JButton c;
+    JButton fgi;
+    JButton f;
+    JButton rb;
+    JButton rn;
+    
+    
     JButton Ariel;
     JButton Bsave;
             
@@ -103,7 +115,37 @@ public class pan extends JPanel implements ActionListener{
         rosado = new JButton(" "); rosado.setBackground(pink);
         
         
+        ImageIcon il = new ImageIcon("src/img/l.png");
+         l = new JButton(); l.setIcon(il);
+         l.setContentAreaFilled(false);
+         
+         ImageIcon ifi = new ImageIcon("src/img/d.png");
+         fi = new JButton(); fi.setIcon(ifi);
+         fi.setContentAreaFilled(false);
         
+         ImageIcon ifg = new ImageIcon("src/img/e.png");
+         fg = new JButton(); fg.setIcon(ifg);
+         fg.setContentAreaFilled(false);
+        
+         ImageIcon ic = new ImageIcon("src/img/c.png");
+         c = new JButton(); c.setIcon(ic);
+         c.setContentAreaFilled(false);
+        
+         ImageIcon ifgi = new ImageIcon("src/img/fgg.png");
+         fgi = new JButton(); fgi.setIcon(ifgi);
+         fgi.setContentAreaFilled(false);
+        
+         ImageIcon ife = new ImageIcon("src/img/f.png");
+         f = new JButton(); f.setIcon(ife);
+         f.setContentAreaFilled(false);
+        
+         ImageIcon irb = new ImageIcon("src/img/b.png");
+         rb = new JButton(); rb.setIcon(irb);
+         rb.setContentAreaFilled(false);
+        
+         ImageIcon irn = new ImageIcon("src/img/n.png");
+         rn = new JButton(); rn.setIcon(irn);
+         rn.setContentAreaFilled(false);
         
   
         
@@ -140,6 +182,17 @@ public class pan extends JPanel implements ActionListener{
         rosado.addActionListener(this);
         gris.addActionListener(this);
         
+        
+        l.addActionListener(this);
+        fi.addActionListener(this);
+        fg.addActionListener(this);
+        c.addActionListener(this);
+        fgi.addActionListener(this);
+        f.addActionListener(this);
+        rb.addActionListener(this);
+        rn.addActionListener(this);
+        
+        
         Bsave.addActionListener(this);
         
         
@@ -159,11 +212,16 @@ public class pan extends JPanel implements ActionListener{
         spaRULE = new spa();
         
         
-        spaUML.setLayout(new FlowLayout());
-        spaUML.add(new JButton("VEANME"));
-        spaUML.add(new JButton("VEANME"));
-        spaUML.add(new JButton("VEANME"));
-        spaUML.add(new JButton("VEANME"));
+        spaUML.setLayout(new GridLayout(2,4));
+        spaUML.add(l);
+        spaUML.add(fi);
+        spaUML.add(fg);
+        spaUML.add(c);
+        spaUML.add(fgi);
+        spaUML.add(f);
+        spaUML.add(rb);
+        spaUML.add(rn);
+ 
         
         spaPINT.setBackground(BLUE);
         spaPINT.setLayout(new FlowLayout(3));
