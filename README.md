@@ -10,5 +10,8 @@ Se debe poder grabar en archivo la pizarra múltiple y cargarla de este. se debe
 La pizarra múltiple se debe grabar en el archivo automáticamente al cambiar de una pizarra a otra. Se debe poder elegir el color de las líneas mediante botones GUI.
 
 
-ERROR FATAL: cualquier evento que provoque una actualizacion Eliminara
+(SOLUCIONADO)ERROR FATAL: cualquier evento que provoque una actualizacion Eliminara
 todos los trazos dibujados en el Lienzo.
+
+
+Se agrego un metodo para guardar los trazos en arraylist para luego guardarlos en serializable.
