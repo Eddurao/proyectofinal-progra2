@@ -71,6 +71,8 @@ public class pan extends JPanel implements ActionListener{
     JButton rb;
     JButton rn;
     
+    JButton Scuadro;
+    
     
     JButton Ariel;
     JButton Bsave;
@@ -115,6 +117,8 @@ public class pan extends JPanel implements ActionListener{
         rosado = new JButton(" "); rosado.setBackground(pink);
         
         
+        
+        
         ImageIcon il = new ImageIcon("src/img/l.png");
          l = new JButton(); l.setIcon(il);
          l.setContentAreaFilled(false);
@@ -148,7 +152,7 @@ public class pan extends JPanel implements ActionListener{
          rn.setContentAreaFilled(false);
         
   
-        
+        Scuadro = new JButton("cua");
         
         
         
@@ -192,6 +196,8 @@ public class pan extends JPanel implements ActionListener{
         rb.addActionListener(this);
         rn.addActionListener(this);
         
+        Scuadro.addActionListener(this);
+        
         
         Bsave.addActionListener(this);
         
@@ -221,6 +227,8 @@ public class pan extends JPanel implements ActionListener{
         spaUML.add(f);
         spaUML.add(rb);
         spaUML.add(rn);
+        
+        spaSELC.add(Scuadro);
  
         
         spaPINT.setBackground(BLUE);
@@ -357,25 +365,29 @@ public class pan extends JPanel implements ActionListener{
          if(e.getSource() == gris){VIP.hj.tarro = Color.gray;}
          if(e.getSource() == grisc){VIP.hj.tarro = Color.lightGray;}
          if(e.getSource() == blanco){VIP.hj.tarro = Color.white;}
-         if(e.getSource() == rosado){VIP.hj.tarro = Color.pink;}
+         if(e.getSource() == rosado){VIP.hj.tarro = Color.pink; VIP.hj.MODE = 0;}
+         
+         if(e.getSource() == Scuadro){VIP.hj.MODE = 60;}
+         
+         
+         
+         
+         
+         
+         
          
          if(e.getSource() == Ariel){ lin.Multi = !lin.Multi; lin.tarro = Color.black;}
          
          if(e.getSource() == Bsave){ VIP.hj.SaveImage();}
 
-         
-         
-         
-         
-     
-    
-    
-    
-    
-    
+       
     
 }
 
+     Selector sel;
+     
+     
+     
 
 class spa extends JPanel {
     
@@ -420,6 +432,10 @@ class fvi extends JFrame{
         
         
     }}
+
+
+
+
 
 
 }

@@ -26,26 +26,37 @@ public class lin extends JPanel    //lin for LIENZO
 {
   // PROPERTIES 
        //drawea botones
-     ArrayList<Integer> REC;
+    
+    
+    
      int CONTADOREC;
     
+   
+     int cx,cy,T,ux,uy;
   public Graphics g;
+  public static byte MODE;
   private final int DEFAULT_WIDTH  = 1200;
   private final int DEFAULT_HEIGHT = 600;
   private final Color BACK_COLOR   = Color.WHITE;
 
   private int x1, y1, x2, y2;
 
+  public ArrayList<DrawData> MASTERddarray;
+  
   public MyMouseHandler handler;
   //public Graphics g;
    
   // CONSTRUCTOR
   static Color tarro;   static boolean Multi;
   public lin(){
-      CONTADOREC = 0;
-     REC = new ArrayList();
       
+      MODE = -1; T=0;
+     MASTERddarray = new ArrayList<>();
+     
+      CONTADOREC = 0; 
+     
       
+                                                   
       Multi = false;
     setBackground( BACK_COLOR ); //
     setPreferredSize( new Dimension( DEFAULT_WIDTH, DEFAULT_HEIGHT ) );
@@ -61,13 +72,38 @@ public class lin extends JPanel    //lin for LIENZO
   {
     super.paintComponent(g);
     
-   for(int id=0; id < REC.size() ;id += 2){ //Aa 
-    g.drawLine((int)(REC.get(id))/10000, (REC.get(id))%10000, (int)(REC.get(id+1))/10000, (REC.get(id+1))%10000);
-  
+    if(MODE == 60){g.drawRect(cx, cy,ux-cx, uy-cy); g.drawRect(cx+1, cy+1,ux-cx, uy-cy);}
+    
    
-   }//aa
-   
+   for(int ide =0; ide < MASTERddarray.size() ; ide++){
+       
+       (MASTERddarray.get(ide)).Paintcord(g);
    }
+   
+  
+      System.out.println(MASTERddarray.size());
+   
+   
+   if(MASTERddarray.size() > 2){
+       DrawData tama = MASTERddarray.get(MASTERddarray.size()-1);
+       int tamaño = tama.RECx1.size();
+       
+       
+       
+       
+       
+       g.fillOval(tama.RECx1.get(tamaño-1), tama.RECy1.get(tamaño-1), 60, 60);
+       
+       
+       
+       
+   }//if
+   
+   
+   
+   
+   
+   }//
 
           //HH System.out.println("SAVETHEQUEEN");
   int opIndex;
@@ -192,10 +228,16 @@ public BufferedImage createImage(JPanel panel) {
   // INNER CLASS
   private class MyMouseHandler extends MouseAdapter
   { 
+      
+      
+ 
+      
+      DrawData grab;
+      
     public void mousePressed( MouseEvent e )
     {
-      x1 = e.getX();
-      y1 = e.getY();
+      x1 = e.getX();  cx = x1; ux = cx;
+      y1 = e.getY();  cy = y1; uy = cy;
 
       System.out.println("Presionado en " + x1 + " Y: " + y1);
 
@@ -203,27 +245,62 @@ public BufferedImage createImage(JPanel panel) {
 
       x2=x1;
       y2=y1;
+      
+     if(MODE==0){ grab = new DrawData();
+      MASTERddarray.add(grab);
+      }//0
+     
     }
 
-    public void mouseDragged( MouseEvent e )
-    {
-      x1 = e.getX();
-      y1 = e.getY();        
-      REC.add(x1*10000 + y1);  REC.add(x2*10000 + y2);
+    public void mouseDragged( MouseEvent e ){
+       x1 = e.getX();
+        y1 = e.getY(); 
+      if(MODE == 0){ //0  
+        
+      
+      grab.RECcord(x1, y1, x2, y2, tarro);
+      
       System.out.println("" + x1 + " Y: " + y1);  
       
       g.setColor(tarro);
       g.drawLine(x1,y1,x2,y2);
-      g.fillOval(x1, y1, 50, 50);
+      
+      
+      g.drawLine(x1+1, y1+1, x2+1, y2+1); g.setColor(Color.red);
+      g.drawLine(x1+2, y1+2, x2+2, y2+2);  g.setColor(Color.orange);
+      g.drawLine(x1+3, y1+3, x2+3, y2+3);  g.setColor(Color.yellow);
+      g.drawLine(x1+4, y1+4, x2+4, y2+4);  g.setColor(Color.blue);
+            //vhs mode
+      // g.fillOval(x1, y1, 50, 50);
      // g.drawRect(x1,y1,Rint(0,50),Rint(0,50));
      
      
      // g.drawImage(i2.getImage(),x1,y1,20,Rint(0,40),null);
       if(Multi){LGBT();}
-      x2=x1;
-      y2=y1;
-     
       
-    }
+      }//0
+      
+      if(MODE == 60){
+       
+        repaint();
+      //if(x1>ux){ux=x1;}
+      //if(y1>uy){uy=y1;}
+      ux = x1;
+      uy = y1;
+       
+     
+        
+          
+      }//60
+      
+      
+      
+      
+      
+      
+      
+      x2 = x1;
+      y2 = y1;
+    }//dragged
   }
 }
