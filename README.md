@@ -10,5 +10,14 @@ Se debe poder grabar en archivo la pizarra múltiple y cargarla de este. se debe
 La pizarra múltiple se debe grabar en el archivo automáticamente al cambiar de una pizarra a otra. Se debe poder elegir el color de las líneas mediante botones GUI.
 
 
-ERROR FATAL: cualquier evento que provoque una actualizacion Eliminara
+(SOLUCIONADO)ERROR FATAL: cualquier evento que provoque una actualizacion Eliminara
 todos los trazos dibujados en el Lienzo.
+
+PROBLEMA DE O.O.P: intente investigar como controlar el paint del JPANEL principal desde clases externas pero al final no
+pude encontrar forma de hacer eso, lo que me llevara a saturar el paint de codigo para poder controlarlo desde fuera.
+
+FEATURE: Se agrego un metodo para guardar los trazos en arraylist para luego guardarlos en serializable
+
+HEAD_PAIN: Las flechas de los UML tienen que girar (las hare 4 posiciones posiblemente. )
+
+
