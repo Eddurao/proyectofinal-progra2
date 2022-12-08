@@ -36,7 +36,7 @@ public class JF extends JFrame {
         
         
         
-        
+        //Aqui no funcionara el hj.setUpDrawingGraphics(); almenos si te guarda bien los datos draw
     }
     
     

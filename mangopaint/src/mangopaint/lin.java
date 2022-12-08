@@ -29,35 +29,33 @@ public class lin extends JPanel    //lin for LIENZO
     
     
     
-     int CONTADOREC;
+    int CONTADOREC; 
+    static int cx,cy,T,ux,uy,fx,fy;
+    public Graphics g;
+    public static byte MODE;
+    private final int DEFAULT_WIDTH  = 1200;
+    private final int DEFAULT_HEIGHT = 600;
+    private final Color BACK_COLOR   = Color.WHITE;
+    public static int x1, y1, x2, y2;
+    public ArrayList<DrawData> MASTERddarray;
+    public MyMouseHandler handler;
+    static Color tarro;                        
+    static boolean Multi; 
     
-   
-     int cx,cy,T,ux,uy;
-  public Graphics g;
-  public static byte MODE;
-  private final int DEFAULT_WIDTH  = 1200;
-  private final int DEFAULT_HEIGHT = 600;
-  private final Color BACK_COLOR   = Color.WHITE;
-
-  private int x1, y1, x2, y2;
-
-  public ArrayList<DrawData> MASTERddarray;
-  
-  public MyMouseHandler handler;
-  //public Graphics g;
+    public Selector sele;
+    public static byte MOUSESTATE;
+//public Graphics g;
    
   // CONSTRUCTOR
-  static Color tarro;   static boolean Multi;
-  public lin(){
+  
+  public lin(){//CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-
       
-      MODE = -1; T=0;
-     MASTERddarray = new ArrayList<>();
-     
-      CONTADOREC = 0; 
-     
-      
-                                                   
-      Multi = false;
+    MODE = -1; MOUSESTATE = 0;
+    T=0;                                 // sele = new Selector(this);
+    MASTERddarray = new ArrayList<>();
+    CONTADOREC = 0;
+    Multi = false;
+    
     setBackground( BACK_COLOR ); //
     setPreferredSize( new Dimension( DEFAULT_WIDTH, DEFAULT_HEIGHT ) );
 
@@ -65,61 +63,46 @@ public class lin extends JPanel    //lin for LIENZO
 
     this.addMouseListener( handler );
     this.addMouseMotionListener( handler );
-  }
+      // AQUI NO FUNCIONA setUpDrawingGraphics(); // !!!!!!!!
+     
+      sele = new Selector(this);
+  } //CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-
 
   // METHOD
-  public void paintComponent(Graphics g)
-  {
-    super.paintComponent(g);
+  public void paintComponent(Graphics g){
+    super.paintComponent(g); //setUpDrawingGraphics();   FUNCIONA AQUI :)
     
-    if(MODE == 60){g.drawRect(cx, cy,ux-cx, uy-cy); g.drawRect(cx+1, cy+1,ux-cx, uy-cy);}
-    
+    //if(MODE == 60){g.drawRect(cx, cy,ux-cx, uy-cy); g.drawRect(cx+1, cy+1,ux-cx, uy-cy);}
    
-   for(int ide =0; ide < MASTERddarray.size() ; ide++){
-       
+    sele.showSelector(g);
+    
+    for(int ide =0; ide < MASTERddarray.size() ; ide++){
        (MASTERddarray.get(ide)).Paintcord(g);
-   }
+    }
    
-  
-      System.out.println(MASTERddarray.size());
+    System.out.println(MASTERddarray.size());  // FLAG
    
    
-   if(MASTERddarray.size() > 2){
-       DrawData tama = MASTERddarray.get(MASTERddarray.size()-1);
-       int tamaño = tama.RECx1.size();
-       
-       
-       
-       
-       
-       g.fillOval(tama.RECx1.get(tamaño-1), tama.RECy1.get(tamaño-1), 60, 60);
-       
-       
-       
-       
-   }//if
+    if(MASTERddarray.size() > 2){
+        DrawData tama = MASTERddarray.get(MASTERddarray.size()-1);
+        int tamaño = tama.RECx1.size();
+        g.fillOval(tama.RECx1.get(tamaño-1), tama.RECy1.get(tamaño-1), 60, 60);
+    }//if
    
    
    
    
    
-   }//
+  }//paintComponent
 
           //HH System.out.println("SAVETHEQUEEN");
-  int opIndex;
-  void setOpIndex(int i) {
-        opIndex = i;
-    }
+  // borrar int opIndex;
+  //void setOpIndex(int i) {
+    //    opIndex = i;
+    //}
   
 public void SaveImage() {
-
-
-
-
     
-    
-    
-        
              /* Save the filtered image in the selected format.
               * The selected item will be the name of the format to use
               */
@@ -141,19 +124,12 @@ public void SaveImage() {
                  try {
                      ImageIO.write(createImage(this), "jpg", saveFile);
                  } catch (IOException ex) {}//ImageIO.write(biFiltered, format, saveFile);
+
                  
-             
-             
-    
-    
-    
-    
-    
-    
-             
              }
             
 
+// ATENTION: USABA g ENVEZ DE g2d !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ERROR FIXED ????
 public BufferedImage createImage(JPanel panel) {
 
     panel.invalidate();
@@ -161,9 +137,9 @@ public BufferedImage createImage(JPanel panel) {
     int w = panel.getWidth();
     int h = panel.getHeight();
     BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-    Graphics2D g = bi.createGraphics();
-    panel.paint(g);
-    g.dispose();
+    Graphics2D g2d = bi.createGraphics();
+    panel.paint(g2d);
+    g2d.dispose();
     return bi;
 }
      
@@ -180,16 +156,13 @@ public BufferedImage createImage(JPanel panel) {
 
   
   
-           //HH
+           
   
   
   public int Rint(int i, int top){
-      
-      int diff = top - i;
-     int R = (int)(i + Math. random()*diff+1);
-      
-      return(R);
-      
+    int diff = top - i;
+    int R = (int)(i + Math. random()*diff+1);
+    return(R);
   }
   
   
@@ -201,10 +174,6 @@ public BufferedImage createImage(JPanel panel) {
           case 4: tarro=Color.green; break;
           case 5: tarro=Color.blue; break;
           case 6: tarro=Color.magenta; break;
-          
-          
-          
-          
       }
       
       
@@ -216,7 +185,7 @@ public BufferedImage createImage(JPanel panel) {
   
   
   
-  private void setUpDrawingGraphics()
+  public void setUpDrawingGraphics()
   {
     g = getGraphics();
   }
@@ -225,6 +194,11 @@ public BufferedImage createImage(JPanel panel) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    
+    
+    
+    
+    
   // INNER CLASS
   private class MyMouseHandler extends MouseAdapter
   { 
@@ -235,13 +209,13 @@ public BufferedImage createImage(JPanel panel) {
       DrawData grab;
       
     public void mousePressed( MouseEvent e )
-    {
+    { MOUSESTATE = 1;
       x1 = e.getX();  cx = x1; ux = cx;
       y1 = e.getY();  cy = y1; uy = cy;
 
       System.out.println("Presionado en " + x1 + " Y: " + y1);
 
-      setUpDrawingGraphics();
+     setUpDrawingGraphics(); 
 
       x2=x1;
       y2=y1;
@@ -253,7 +227,8 @@ public BufferedImage createImage(JPanel panel) {
     }
 
     public void mouseDragged( MouseEvent e ){
-       x1 = e.getX();
+       MOUSESTATE = 2;
+        x1 = e.getX();
         y1 = e.getY(); 
       if(MODE == 0){ //0  
         
@@ -302,5 +277,28 @@ public BufferedImage createImage(JPanel panel) {
       x2 = x1;
       y2 = y1;
     }//dragged
+    
+    
+    public void mouseReleased(MouseEvent e){
+    MOUSESTATE = 3;
+    
+    fx = e.getX();
+    fy = e.getY();
+    
+    sele.showSelector(getGraphics());
+    
+    
+    
+    
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
   }
 }
