@@ -23,16 +23,42 @@ public class Selector {
     lin rey;
     int sex,sey,wide,putin,corrido,enterrado;
     byte selec;
+    int sid;
+    DrawData sdraw;
     public Selector(lin k){
     rey = k;
     selec = 0;
     corrido =0;
     enterrado =0;
+    sdraw = null;
+    sid = -1;
+    
+    
     }
     
-    public void showSelector(Graphics go){if(lin.MODE == 60){
+    public void showSelector(Graphics go){
+        
+        if(lin.MODE != 60 && selec == 1){
+            
+          
+    selec = 0;
+    corrido =0;
+    enterrado =0;
+    sdraw = null;
+    sid = -1;
+            
+            
+            
+        }
+        
+        if(lin.MODE == 60){
+        
+        
          
-        if(lin.MOUSESTATE == 2 && selec == 1){corrido = lin.ux - lin.cx; enterrado = lin.uy - lin.cy ;}
+        if(lin.MOUSESTATE == 2 && selec == 1){corrido = lin.ux - lin.cx; enterrado = lin.uy - lin.cy ;
+        if(sdraw != null){ (rey.MASTERddarray.get(sid)).correcord(corrido, enterrado , sdraw);             }
+        
+        }
         if(lin.MOUSESTATE == 3 && selec == 1){sex += corrido; sey += enterrado; corrido = 0; enterrado = 0;}
         if(lin.MOUSESTATE == 1 || lin.MOUSESTATE == 2 && selec == 0){
            corrido = 0;  enterrado = 0;
@@ -52,17 +78,42 @@ public class Selector {
         go.drawRect(sex + corrido , sey + enterrado,wide, putin); go.drawRect(sex+1+corrido, sey+1+enterrado,wide+1, putin+1);
         }
         
+        if(lin.MOUSESTATE == 3 && selec == 1){
+          
+            
+            
+           for(int id = 0; id < rey.MASTERddarray.size() ; id++){
+            if((rey.MASTERddarray.get(id)).estoyDentro(sex, sey, sex+wide, sey+putin)){sid = id;}
+            else{sid = -1;}     
+           }
+           
+           if(sid != -1 ){
+             sdraw = (rey.MASTERddarray.get(sid)).clone();
+                 
+               System.out.println("echo");
+           }else{
+           
+           
+           
+           
+           }
+        
+        
+        }
         
         
         
-    }}
+        
+    } }
  
     
     
    
     
 
-   
+    
+    
+
       
    
  

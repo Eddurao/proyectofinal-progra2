@@ -20,4 +20,11 @@ FEATURE: Se agrego un metodo para guardar los trazos en arraylist para luego gua
 
 HEAD_PAIN: Las flechas de los UML tienen que girar (las hare 4 posiciones posiblemente. )
 
+HEAD_PAIN: si se hacen commits al readme via github luego tendre que hacer git mergue.
+
+DATO IMPORTANTE: para poder aceptar en la consola de merge hay que pulsar 2 veces !
+ Asi :  !  ,  !  y podremos escribir comandos (no borrar el !)
+
+extraño error: por alguna razon no se que hice las flechas dejaron de funcionar. (lo restitui con controlZ)
+
 

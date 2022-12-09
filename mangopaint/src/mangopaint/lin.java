@@ -7,6 +7,12 @@ package mangopaint;
 /**
  *
  */ // @author eparr
+
+//import java.awt.Graphics2D;
+//import java.awt.BasicStroke;
+
+
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -30,7 +36,7 @@ public class lin extends JPanel    //lin for LIENZO
     
     
     int CONTADOREC; 
-    static int cx,cy,T,ux,uy,fx,fy;
+    static int cx,cy,T,ux,uy,fx,fy,mx,my;
     public Graphics g;
     public static byte MODE;
     private final int DEFAULT_WIDTH  = 1200;
@@ -44,6 +50,9 @@ public class lin extends JPanel    //lin for LIENZO
     
     public Selector sele;
     public static byte MOUSESTATE;
+    public lin este;
+    
+    public UMLarrowDRAWER umlAD;
 //public Graphics g;
    
   // CONSTRUCTOR
@@ -66,6 +75,8 @@ public class lin extends JPanel    //lin for LIENZO
       // AQUI NO FUNCIONA setUpDrawingGraphics(); // !!!!!!!!
      
       sele = new Selector(this);
+      umlAD = new UMLarrowDRAWER();
+      este = this;
   } //CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-
 
   // METHOD
@@ -75,6 +86,7 @@ public class lin extends JPanel    //lin for LIENZO
     //if(MODE == 60){g.drawRect(cx, cy,ux-cx, uy-cy); g.drawRect(cx+1, cy+1,ux-cx, uy-cy);}
    
     sele.showSelector(g);
+    umlAD.showUMLarrows(g);
     
     for(int ide =0; ide < MASTERddarray.size() ; ide++){
        (MASTERddarray.get(ide)).Paintcord(g);
@@ -223,6 +235,10 @@ public BufferedImage createImage(JPanel panel) {
      if(MODE==0){ grab = new DrawData();
       MASTERddarray.add(grab);
       }//0
+     sele.showSelector(getGraphics());
+     
+     if(MODE == 1 || MODE == 2){umlAD.setPoint();}
+     
      
     }
 
@@ -293,7 +309,16 @@ public BufferedImage createImage(JPanel panel) {
     
     }
     
-    
+    public void mouseMoved(MouseEvent e){
+        MOUSESTATE = 4;
+        
+        mx = e.getX();
+        my = e.getY();
+        
+        if(MODE == 1 || MODE == 2){umlAD.UMLliveshow(g, este);}
+        
+        System.out.println("movido");
+    }
     
     
     

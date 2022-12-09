@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author eparr
  */
-public class DrawData {
+public class DrawData implements Cloneable {
     
     ArrayList< Short > RECx1;
     ArrayList< Short > RECy1;
@@ -27,7 +27,7 @@ public class DrawData {
         RECy1 = new ArrayList<>();
         RECx2 = new ArrayList<>();
         RECy2 = new ArrayList<>();
-        
+        tinta = Color.black;
         
         
         
@@ -85,5 +85,72 @@ public class DrawData {
         
     }
     
+    public void correcord(int xd, int yd, DrawData copia){
+        
+        int momx1;
+        int momy1;
+        int momx2;
+        int momy2;
+        
+        
+        for(int i=0 ; i<RECx1.size() ; i++){
+            
+           momx1 = copia.RECx1.get(i);
+            momy1 = copia.RECy1.get(i);
+           momx2 = copia.RECx2.get(i);
+            momy2 = copia.RECy2.get(i);
+            
+            RECx1.set(i, (short)(momx1 + xd));
+            RECy1.set(i, (short)(momy1 + yd));
+            RECx2.set(i, (short)(momx2 + xd));
+            RECy2.set(i, (short)(momy2 + yd));
+            
+            
+        }
+        
+        
+        
+        
     
+    
+       
+        
+        
+        
+        
+    }
+
+    
+    
+    
+   
+    public DrawData clone(){
+        DrawData obj=null;
+        try{
+            obj=(DrawData)super.clone();
+        }catch(CloneNotSupportedException ex){
+            System.out.println(" no se puede duplicar");
+        }
+        obj.RECx1=(ArrayList< Short >)obj.RECx1.clone();
+        obj.RECy1=(ArrayList< Short >)obj.RECy1.clone();
+        obj.RECx2=(ArrayList< Short >)obj.RECx2.clone();
+        obj.RECy2=(ArrayList< Short >)obj.RECy2.clone();
+        obj.tinta=tinta;  //!!!!!!!!!!!
+        return obj;
+    }
+    
+    
+    
+    
+    
+    
+
+
 }
+    
+    
+    
+    
+    
+    
+
