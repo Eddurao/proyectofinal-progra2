@@ -367,8 +367,14 @@ public class pan extends JPanel implements ActionListener{
          if(e.getSource() == blanco){VIP.hj.tarro = Color.white;}
          if(e.getSource() == rosado){VIP.hj.tarro = Color.pink; VIP.hj.MODE = 0;}
          
-         if(e.getSource() == l){lin.MODE = 1;}
-         if(e.getSource() == fi){lin.MODE = 2; System.out.println("MODO 2");}
+         if(e.getSource() == l ){lin.MODE = 1;}
+         if(e.getSource() == fi){lin.MODE = 2;}
+         if(e.getSource() == fg){lin.MODE = 3;}
+         if(e.getSource() == c ){lin.MODE = 4;}
+         if(e.getSource() == fgi){lin.MODE = 5;}
+         if(e.getSource() == f){lin.MODE = 6;}
+         if(e.getSource() == rb){lin.MODE = 7;}
+         if(e.getSource() == rn){lin.MODE = 8;}
          
          
          

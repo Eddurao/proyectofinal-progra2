@@ -75,7 +75,7 @@ public class lin extends JPanel    //lin for LIENZO
       // AQUI NO FUNCIONA setUpDrawingGraphics(); // !!!!!!!!
      
       sele = new Selector(this);
-      umlAD = new UMLarrowDRAWER();
+      umlAD = new UMLarrowDRAWER(this);
       este = this;
   } //CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-
 
@@ -216,13 +216,13 @@ public BufferedImage createImage(JPanel panel) {
   { 
       
       
- 
+    
       
       DrawData grab;
       
     public void mousePressed( MouseEvent e )
     { MOUSESTATE = 1;
-      x1 = e.getX();  cx = x1; ux = cx;
+      x1 = e.getX();  cx = x1; ux = cx;   //OJO AQUI
       y1 = e.getY();  cy = y1; uy = cy;
 
       System.out.println("Presionado en " + x1 + " Y: " + y1);
@@ -237,7 +237,7 @@ public BufferedImage createImage(JPanel panel) {
       }//0
      sele.showSelector(getGraphics());
      
-     if(MODE == 1 || MODE == 2){umlAD.setPoint();}
+     if(0 < MODE  &&  MODE < 20){umlAD.setPoint();}
      
      
     }
@@ -315,9 +315,9 @@ public BufferedImage createImage(JPanel panel) {
         mx = e.getX();
         my = e.getY();
         
-        if(MODE == 1 || MODE == 2){umlAD.UMLliveshow(g, este);}
+        if(0 < MODE  &&  MODE < 20){umlAD.UMLliveshow(g, este);}
         
-        System.out.println("movido");
+        
     }
     
     

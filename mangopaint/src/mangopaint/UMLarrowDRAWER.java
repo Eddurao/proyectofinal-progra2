@@ -16,22 +16,30 @@ public class UMLarrowDRAWER {
     byte arroW;
     int rulepointx;
     int rulepointy;
+    lin rei;
     ArrayList<UMLarrows> arrowAL;
     UMLarrows currentARROW;
-    public UMLarrowDRAWER(){
+    public UMLarrowDRAWER(lin rei){
         MODE = lin.MODE;
         arroW = -1;
         arrowAL = new ArrayList<>();
-        
+        this.rei = rei;
         
         
     }
     
     
-    public void setPoint(){
+    public void setPoint(){    
         
         if(arroW < 0){
-            if(lin.MODE % 10 == 1){ arrowAL.add(new aLIN()); arroW++;} // pasa a 0
+            if(lin.MODE == 1){ arrowAL.add(new aLIN()); arroW++;}
+            if(lin.MODE == 2){arrowAL.add(new aDEP()); arroW++;}   // pasa a 0
+            if(lin.MODE == 3){arrowAL.add(new aHER()); arroW++;}   // pasa a 0
+            if(lin.MODE == 4){arrowAL.add(new aCIR()); arroW++;}   // pasa a 0
+            if(lin.MODE == 5){arrowAL.add(new aIMP()); arroW++;}   // pasa a 0
+            if(lin.MODE == 6){arrowAL.add(new aASO()); arroW++;}   // pasa a 0
+            if(lin.MODE == 7){arrowAL.add(new aAGR()); arroW++;}   // pasa a 0
+            if(lin.MODE == 8){arrowAL.add(new aCOM()); arroW++;}   // pasa a 0
              
         }
         
@@ -41,7 +49,7 @@ public class UMLarrowDRAWER {
         } //TE HACE EL PRIMER PUNTO
          //aqui falta el comprobador de esquina  Y PASA A SER 1
         
-            
+        if(arroW == 9 ){ arrowAL.remove(arrowAL.size()-1); arroW = -1; return;  } //problema aaa ya se porque .. le falta un return
             
         if(arroW > 0){
             int H = lin.cx - rulepointx ; 
@@ -51,10 +59,10 @@ public class UMLarrowDRAWER {
         if(V < 0){Vabs = -V;}else{Vabs = V;}
         
         short ansx = (arrowAL.get(arrowAL.size()-1)).penPointx(200);
-        short ansy = (arrowAL.get(arrowAL.size()-1)).penPointy(0);
+        short ansy = (arrowAL.get(arrowAL.size()-1)).penPointy(200);
         
-        if( (ansx-80 < lin.cx) && (lin.cx < ansx+80) &&
-               (ansy-80 < lin.cy) && (lin.cy < ansy+80) ){arroW = -1;System.out.println("CANCEWLADO");
+        if( (ansx-50 < lin.cx) && (lin.cx < ansx+50) &&
+               (ansy-50 < lin.cy) && (lin.cy < ansy+50) ){arroW = -1; rei.repaint(); 
               (arrowAL.get(arrowAL.size()-1)).restaUNO(); return; }
         
         if(Vabs < Habs){(arrowAL.get(arrowAL.size()-1)).setPoint(lin.cx,ansy); }
@@ -62,6 +70,7 @@ public class UMLarrowDRAWER {
 
         }
             
+        
          
         rulepointx = lin.cx;
         rulepointy = lin.cy;
@@ -92,23 +101,13 @@ public class UMLarrowDRAWER {
     
     
     
-    public void showUMLarrows(Graphics g){   //el live drawing se hara por aca
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    public void showUMLarrows(Graphics g){   
         
         for(int ih = 0; ih < arrowAL.size() ; ih++){
             
             (arrowAL.get(ih)).showarrow(g);
             
-            
-            
+              
         }
         
         
@@ -140,7 +139,9 @@ public class UMLarrowDRAWER {
         
         (arrowAL.get(arrowAL.size()-1)).showarrow(g);  rep.repaint();  //quitar el repaint plis
     
-             //h5     ALGO SIGUE MAAAAL
+        
+        
+         //h5     ALGO SIGUE MAAAAL
     } }//arroW
     
     
