@@ -88,7 +88,7 @@ public class Selector {
            }
            
            if(sid != -1 ){
-             sdraw = (rey.MASTERddarray.get(sid)).clone();
+             sdraw = (rey.MASTERddarray.get(sid)).clone();    //comparador para arrastrar
                  
                System.out.println("echo");
            }else{

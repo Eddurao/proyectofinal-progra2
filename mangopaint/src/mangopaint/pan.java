@@ -73,6 +73,10 @@ public class pan extends JPanel implements ActionListener{
     
     JButton Scuadro;
     
+    JButton UMLpen;
+    
+    JButton cbox;
+    
     
     JButton Ariel;
     JButton Bsave;
@@ -85,8 +89,8 @@ public class pan extends JPanel implements ActionListener{
     spa spaMATH;
     spa spaRULE;
     
-    public pan(JF jf){
-        VIP = jf;
+    public pan(JF jf){   
+        VIP = jf;   
         FlowLayout flow = new FlowLayout(3);
         this.setLayout(flow);                      //CONFIG PRINCIPANEL
         this.setBackground(ORANGE);
@@ -154,8 +158,9 @@ public class pan extends JPanel implements ActionListener{
   
         Scuadro = new JButton("cua");
         
+        cbox = new JButton("BOX");
         
-        
+        UMLpen = new JButton("Edit");
        
         
         
@@ -197,6 +202,8 @@ public class pan extends JPanel implements ActionListener{
         rn.addActionListener(this);
         
         Scuadro.addActionListener(this);
+        cbox.addActionListener(this);
+        UMLpen.addActionListener(this);
         
         
         Bsave.addActionListener(this);
@@ -217,16 +224,21 @@ public class pan extends JPanel implements ActionListener{
         spaMATH = new spa();
         spaRULE = new spa();
         
+        tlis arrows = new tlis(2,4);
         
-        spaUML.setLayout(new GridLayout(2,4));
-        spaUML.add(l);
-        spaUML.add(fi);
-        spaUML.add(fg);
-        spaUML.add(c);
-        spaUML.add(fgi);
-        spaUML.add(f);
-        spaUML.add(rb);
-        spaUML.add(rn);
+        spaUML.setLayout(new FlowLayout());
+        arrows.add(l);
+        arrows.add(fi);
+        arrows.add(fg);
+        arrows.add(c);
+        arrows.add(fgi);
+        arrows.add(f);
+        arrows.add(rb);
+        arrows.add(rn);
+        
+        spaUML.add(arrows);
+        spaUML.add(cbox);        ///////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        spaUML.add(UMLpen);
         
         spaSELC.add(Scuadro);
  
@@ -318,9 +330,9 @@ public class pan extends JPanel implements ActionListener{
         
         
         
+       UMLpen.addKeyListener(VIP.kine);
         
-        
-        
+        //Buml.addKeyListener(VIP.kine);
  
     }
     
@@ -380,7 +392,8 @@ public class pan extends JPanel implements ActionListener{
          
          if(e.getSource() == Scuadro){VIP.hj.MODE = 60;}
          
-         
+         if(e.getSource() == cbox){VIP.hj.MODE = 10;}
+         if(e.getSource() == UMLpen){VIP.hj.MODE = 14;}
          
          
          
@@ -393,8 +406,10 @@ public class pan extends JPanel implements ActionListener{
          
          if(e.getSource() == Bsave){ VIP.hj.SaveImage();}
 
-       
-    
+         
+      
+      
+      
 }
 
      Selector sel;

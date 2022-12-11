@@ -28,7 +28,7 @@ import javax.imageio.stream.ImageOutputStream;
 import java.util.*;
 
 
-public class lin extends JPanel    //lin for LIENZO
+public class lin extends JPanel   //lin for LIENZO
 {
   // PROPERTIES 
        //drawea botones
@@ -53,6 +53,8 @@ public class lin extends JPanel    //lin for LIENZO
     public lin este;
     
     public UMLarrowDRAWER umlAD;
+    public UMLclassboxHANDLER umlCBH;
+    public key kin;
 //public Graphics g;
    
   // CONSTRUCTOR
@@ -68,7 +70,7 @@ public class lin extends JPanel    //lin for LIENZO
     setBackground( BACK_COLOR ); //
     setPreferredSize( new Dimension( DEFAULT_WIDTH, DEFAULT_HEIGHT ) );
 
-    handler  = new MyMouseHandler();
+    handler  = new MyMouseHandler();  kin = new key();
 
     this.addMouseListener( handler );
     this.addMouseMotionListener( handler );
@@ -76,12 +78,44 @@ public class lin extends JPanel    //lin for LIENZO
      
       sele = new Selector(this);
       umlAD = new UMLarrowDRAWER(this);
+      umlCBH = new UMLclassboxHANDLER();
       este = this;
+      
+   
+    this.addKeyListener(kin);
+      this.addKeyListener(kin);
+      this.addKeyListener(kin);
+      
+      
+     
+     
+    
+     
   } //CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-
 
   // METHOD
   public void paintComponent(Graphics g){
     super.paintComponent(g); //setUpDrawingGraphics();   FUNCIONA AQUI :)
+    
+    
+    
+    //TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE ini
+    
+    UMLclassbox cbox = new UMLclassbox();
+    cbox.x = 100;
+    cbox.y = 100;
+    cbox.xa = 400;
+    cbox.ya = 400;
+    cbox.showclassbox(g);
+    
+    
+    
+    
+    
+    
+    //TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE end
+    
+    umlCBH.showUMLclassboxes(g);
     
     //if(MODE == 60){g.drawRect(cx, cy,ux-cx, uy-cy); g.drawRect(cx+1, cy+1,ux-cx, uy-cy);}
    
@@ -206,6 +240,7 @@ public BufferedImage createImage(JPanel panel) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+   
     
     
     
@@ -237,8 +272,10 @@ public BufferedImage createImage(JPanel panel) {
       }//0
      sele.showSelector(getGraphics());
      
-     if(0 < MODE  &&  MODE < 20){umlAD.setPoint();}
-     
+     if(0 < MODE  &&  MODE < 9){umlAD.setPoint(); }    //error capsioso tenia doble } y no la vi
+     if( MODE == 10){umlCBH.createClassBox();}
+     if( MODE == 14 || MODE == 15){umlCBH.UMLsetoedit();}          //Modo 14 : clickea algun punto
+     if( MODE == 15){repaint();}
      
     }
 
@@ -295,7 +332,7 @@ public BufferedImage createImage(JPanel panel) {
     }//dragged
     
     
-    public void mouseReleased(MouseEvent e){
+    public void mouseReleased(MouseEvent e){ kin = new key();
     MOUSESTATE = 3;
     
     fx = e.getX();
@@ -315,7 +352,7 @@ public BufferedImage createImage(JPanel panel) {
         mx = e.getX();
         my = e.getY();
         
-        if(0 < MODE  &&  MODE < 20){umlAD.UMLliveshow(g, este);}
+        if(0 < MODE  &&  MODE < 12){umlAD.UMLliveshow(g, este); umlCBH.UMLliveshow(g, este);  }  //
         
         
     }

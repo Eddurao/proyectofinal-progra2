@@ -27,4 +27,7 @@ DATO IMPORTANTE: para poder aceptar en la consola de merge hay que pulsar 2 vece
 
 extraño error: por alguna razon no se que hice las flechas dejaron de funcionar. (lo restitui con controlZ)
 
+PROBLEMA TIME WASTER: (5 hrs perdidas) resulta que Keylistener se desactiva si presionas un boton
+(LA SOLUCION: agregar el key listener a un boton cualquiera, no al jpanel. nose porque pero funciona.
+
 

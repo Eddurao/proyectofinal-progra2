@@ -6,6 +6,8 @@ package mangopaint;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 /**
  *
  * @author eparr
@@ -13,21 +15,45 @@ import java.awt.*;
 public class JF extends JFrame {
     
     pan pc;
-    lin hj;                    
+    lin hj;       key kine;         
     public JF(){
         super();
         setVisible(true);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(3);
         
-        pc = new pan(this);
-        hj = new lin();                           
+        kine = new key(); kine.setJF(this);
+      
+          
+        
+        
+        pc = new pan(this); 
+        hj = new lin();                             
         add(pc ,BorderLayout.NORTH);        
         add(hj ,BorderLayout.CENTER);          
         hj.setIgnoreRepaint(false);       
         
-     
         
+     addKeyListener(kine);
+     pc.addKeyListener(kine);
+        
+        //TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE ini
+        
+       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE end
         
         
         
