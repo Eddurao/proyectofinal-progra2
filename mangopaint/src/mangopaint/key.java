@@ -14,7 +14,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 
 /**
- *
+ * clase escuchadora de teclado para ingresar caracteres al texto de las cajas de clase UML
  * @author eparr
  */
 public class key extends JPanel implements ActionListener, KeyListener{ // ActionListener,
@@ -52,7 +52,7 @@ public class key extends JPanel implements ActionListener, KeyListener{ // Actio
        // if(e.getKeyChar() == KeyEvent.VK_B){ System.out.println("asdnfasdñoif"); } 
         System.out.println( "noting" );
     }
-
+// AQUI SE HACE USO DEL PATRON OBSERVER
     @Override
     public void keyPressed(KeyEvent ea) {
         
@@ -60,6 +60,7 @@ public class key extends JPanel implements ActionListener, KeyListener{ // Actio
         System.out.println(ea.getKeyChar());
         
        if(ea.getKeyCode() == 10){F.hj.umlCBH.TextAddLine(); System.out.println("ADDED LINE"); F.repaint(); return;} 
+       if(ea.getKeyCode() == 8){ F.hj.umlCBH.QuitChar(); System.out.println("QUITED LINE"); F.repaint(); return; }
       
        if( 32 < ea.getKeyChar() && ea.getKeyChar() < 128 && lin.MODE == 15 ){ F.hj.umlCBH.TextEdit( ea.getKeyChar()  );}
        F.repaint();

@@ -10,7 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 /**
- *
+ * Clase general de los componentes de flecha UML
  * @author eparr
  */
 public abstract class UMLarrows {
@@ -28,10 +28,18 @@ public abstract class UMLarrows {
 
     }    
     
+    /**
+     * Funcion General para dibujar las flechas (variara segun tipo de flecha)
+     * @param g Graphics en donde dibujar
+     */
     abstract void showarrow(Graphics g);
         
         
-        
+        /**
+         * Definir un vertice para la flecha
+         * @param xa Absciza del MOUSE
+         * @param ya ordenada del MOUSE
+         */
     public void setPoint(int xa , int ya){  //a las 9 se arruina
      
         if(count < 10){
@@ -42,6 +50,12 @@ public abstract class UMLarrows {
         count++; }else{count = 0;}
     }    
     
+    /**
+     * 
+     * cambiar el ultimo punto sin definirlo
+     * @param an Absciza MOUSE
+     * @param ya Ordenada MOUSE
+     */
     public void driveCurrentPoint(int an , int ya){
         if(count > 0 && count < 10){
          x[count]= (short)an;
@@ -50,12 +64,19 @@ public abstract class UMLarrows {
         
     }
     
+    /**
+     * funcion en desuso
+     */
     public void deleteAllPoints(){ //ARREGLAR ERROR
         x = new short[10];
         y = new short[10];
         count = -1; 
     }
     
+    /**
+     * Retorna la direccion hacia el ultimo vertice
+     * @return 1:NORTH 2:EAST 3:SOUTH 4:WEST 0:error
+     */
     public byte oneDirection(){ if(count > 0){
         byte Dir,Dir2;
         if( x[count -1] < x[count]){Dir = 2;}
@@ -78,16 +99,34 @@ public abstract class UMLarrows {
     
     } return 0; }
     
+    /**
+     * 
+     * 
+     * Retorna la Abscisa penultimo punto
+     * @param X numero a devolver en caso de que no se cumplan los requisitos 
+     * @return Abscisa del penultimo punto o si no cumple requisitos devuelve X
+     */
     public short penPointx(int X){
         if(count > 0){return x[count -1];}
         return (short)X;
     }
     
+    /**
+     * 
+     * 
+     * Retorna Ordenada del penultimo punto
+     * @param Y numero a devolver en caso de que no se cumplan los requisitos 
+     * @return Abscisa del penultimo punto o si no cumple requisitos devuelve X
+     */
     public short penPointy(int Y){
         if(count > 0){return y[count -1];}
         return (short)Y;
     }
     
+    /**
+     * resta 1 al contador del array de coordenadas.
+     * 
+     */
     public void restaUNO(){
         
         count--;
@@ -99,6 +138,11 @@ public abstract class UMLarrows {
     
 }//general
 
+/**
+ * Clase para dibujar una linea de relacion
+ * 
+ * @author eparr
+ */
 class aLIN extends UMLarrows{  //LIN LIN LIN LIN LIN LIN LIN LIN LIN LIN LIN LIN 
     
     public aLIN(){
@@ -180,7 +224,11 @@ class aLIN extends UMLarrows{  //LIN LIN LIN LIN LIN LIN LIN LIN LIN LIN LIN LIN
 
 
 
-
+/**
+ * 
+ * clase para dibujar una flecha de dependencia
+ * @author eparr
+ */
 class aDEP extends UMLarrows{  // O.K
     
     public aDEP(){
@@ -272,7 +320,10 @@ class aDEP extends UMLarrows{  // O.K
 
 
 
-
+/**
+ * clase para dibujar una flecha de Herencia
+ * @author eparr
+ */
 class aHER extends UMLarrows{  //
     
     public aHER(){
@@ -359,7 +410,10 @@ class aHER extends UMLarrows{  //
 
 
 
-
+/**
+ * clase para dibujar flecha de interfaz
+ * @author eparr
+ */
 class aCIR extends UMLarrows{  //poneme el circulo
     
     public aCIR(){
@@ -438,7 +492,10 @@ class aCIR extends UMLarrows{  //poneme el circulo
 
 
 
-
+/**
+ * clase para dibujar flecha de implementacion de interface
+ * @author eparr
+ */
 class aIMP extends UMLarrows{
     
     public aIMP(){
@@ -531,7 +588,10 @@ class aIMP extends UMLarrows{
 
 
 
-
+/**
+ * clase para dibujar flecha de asociacion
+ * @author eparr
+ */
 class aASO extends UMLarrows{  // O.K
     
     public aASO(){
@@ -610,7 +670,10 @@ class aASO extends UMLarrows{  // O.K
 
 
 
-
+/**
+ * clase para dibujar flecha de agregacion
+ * @author eparr
+ */
 class aAGR extends UMLarrows{  //
     
     public aAGR(){
@@ -736,7 +799,10 @@ class aAGR extends UMLarrows{  //
 
 
 
-
+/**
+ * clase para dibujar flecha de composicion
+ * @author eparr
+ */
 class aCOM extends UMLarrows{  //
     
     public aCOM(){

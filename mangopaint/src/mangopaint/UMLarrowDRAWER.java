@@ -8,7 +8,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 /**
- *
+ * Dibujador y mostrador de flechas UML
  * @author eparr
  */
 public class UMLarrowDRAWER {
@@ -28,7 +28,12 @@ public class UMLarrowDRAWER {
         
     }
     
-    
+    /**
+     * 
+     * funcion que define los puntos de los vertices de las flechas
+     * 
+     * X e Y son leidos desde las variables estaticas de lin: cx , cy
+     */
     public void setPoint(){    
         
         if(arroW < 0){
@@ -100,7 +105,11 @@ public class UMLarrowDRAWER {
         
     
     
-    
+    /**
+     * dibuja las flechas UML en la pantalla
+     * 
+     * @param g Graphics donde se dibujara
+     */
     public void showUMLarrows(Graphics g){   
         
         for(int ih = 0; ih < arrowAL.size() ; ih++){
@@ -115,7 +124,13 @@ public class UMLarrowDRAWER {
         
     }
     
-    
+    /**
+     * dibuja en vivo la creacion de la flecha
+     * (concepto de patron observador)
+     * 
+     * @param g Graphics donde se dibujara
+     * @param rep Panel donde se dibuja, su funcionalidad es hacer posible el repaint 
+     */
     public void UMLliveshow(Graphics g, lin rep){if(arroW > 0){ //BUG VISUAL FIX PLIS (fixed a medias)
         
         short ansx = (arrowAL.get(arrowAL.size()-1)).penPointx(400);

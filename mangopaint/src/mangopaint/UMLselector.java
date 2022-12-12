@@ -13,33 +13,37 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 
 /**
- * Selector rectangular para trazos (DrawData)
+ *
  * @author eparr
  */
 
 
-public class Selector {
+public class UMLselector {
     
     lin rey;
     int sex,sey,wide,putin,corrido,enterrado;
     byte selec;
     int sid;
-    DrawData sdraw;
-    public Selector(lin k){
+   
+    int cux;
+    int cuy;
+    int cuxa;
+    int cuya;
+    
+    public UMLselector(lin k){
     rey = k;
     selec = 0;
     corrido =0;
     enterrado =0;
-    sdraw = null;
+    cux = -1;
     sid = -1;
-    
+        
     
     }
     
     /**
-     * Dibuja el rectangulo del selector en pantalla
-     * se activa preferentemente con repaints en un mouseDragg
-     * @param go Graphics donde se mostrara el rectangulo del selector 
+     * Muestra el rectangulo selector en vivo
+     * @param go Graphics en donde dibujar
      */
     public void showSelector(Graphics go){
         
@@ -49,7 +53,7 @@ public class Selector {
     selec = 0;
     corrido =0;
     enterrado =0;
-    sdraw = null;
+   
     sid = -1;
             
             
@@ -61,7 +65,7 @@ public class Selector {
         
          
         if(lin.MOUSESTATE == 2 && selec == 1){corrido = lin.ux - lin.cx; enterrado = lin.uy - lin.cy ;
-        if(sdraw != null){ (rey.MASTERddarray.get(sid)).correcord(corrido, enterrado , sdraw);             }
+        if(cux != -1){ (rey.umlCBH.cboxAL.get(sid)).correCB(corrido, enterrado, cux, cuy, cuxa, cuya);             }
         
         }
         if(lin.MOUSESTATE == 3 && selec == 1){sex += corrido; sey += enterrado; corrido = 0; enterrado = 0;}
@@ -86,15 +90,20 @@ public class Selector {
         if(lin.MOUSESTATE == 3 && selec == 1){
           
             
-            
-           for(int id = 0; id < rey.MASTERddarray.size() ; id++){
-            if((rey.MASTERddarray.get(id)).estoyDentro(sex, sey, sex+wide, sey+putin)){sid = id;}
+               //recore y pregunta si esta dentro da true
+           for(int id = 0; id < rey.umlCBH.cboxAL.size() ; id++){   // littleBig error se me olvido cambiar este array
+            if((rey.umlCBH.cboxAL.get(id)).EstoyDentro(sex, sey, sex+wide, sey+putin)){sid = id;}
             //fixed littlebig error. else inadecuado.
            }
-            
+           
+           System.out.println("searchedUML" + sid);
+           
            if(sid != -1 ){
-             sdraw = (rey.MASTERddarray.get(sid)).clone();    //comparador para arrastrar
-                 
+             cux =  (rey.umlCBH.cboxAL.get(sid)).x ;  //comparador para arrastrar
+             cuy =  (rey.umlCBH.cboxAL.get(sid)).y ;
+             cuxa =  (rey.umlCBH.cboxAL.get(sid)).xa ;
+             cuya =  (rey.umlCBH.cboxAL.get(sid)).ya ;
+                     
                System.out.println("echo");
            }else{
            
@@ -114,13 +123,13 @@ public class Selector {
     
     
    
-   /**
-    * Elimina el DataDraw dentro del rectangulo
-    */ 
+    /**
+     * Elimina trazo seleccionado por el rectangulo seleccionador
+     */
 public void ELIMINAR(){
 
     if(sid != -1){
-rey.MASTERddarray.remove(sid);
+rey.umlCBH.cboxAL.remove(sid);
     }
 
 

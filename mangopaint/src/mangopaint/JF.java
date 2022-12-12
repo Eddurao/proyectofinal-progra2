@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 /**
  *
  * @author eparr
@@ -15,17 +16,26 @@ import java.awt.event.KeyListener;
 public class JF extends JFrame {
     
     pan pc;
-    lin hj;       key kine;         
+    lin hj;       key kine;      lin h2; lin h3;
+
+   // ArrayList<lin> MMM = new ArrayList<>();
     public JF(){
         super();
         setVisible(true);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(3);
+        setTitle("MangoPaint");
+        
+         ImageIcon i = new ImageIcon("src/img/mango22.png");   //drawea fondo
+        
+        
+        
+        this.setIconImage( i.getImage() );
         
         kine = new key(); kine.setJF(this);
       
           
-        
+        h2 = new lin(); h3 = new lin();
         
         pc = new pan(this); 
         hj = new lin();                             
@@ -40,6 +50,9 @@ public class JF extends JFrame {
         //TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE ini
         
        
+        
+   
+        
         
         
         
@@ -64,6 +77,27 @@ public class JF extends JFrame {
         
         //Aqui no funcionara el hj.setUpDrawingGraphics(); almenos si te guarda bien los datos draw
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 }

@@ -28,7 +28,7 @@ import javax.imageio.ImageIO;
 
 
 /**
- *
+ * PANel de herramientas y opciones
  * @author eparr
  */
 
@@ -72,6 +72,9 @@ public class pan extends JPanel implements ActionListener{
     JButton rn;
     
     JButton Scuadro;
+    JButton Sdeselec;
+    JButton Sdelete;
+    JButton Sretomar;
     
     JButton UMLpen;
     
@@ -80,7 +83,11 @@ public class pan extends JPanel implements ActionListener{
     
     JButton Ariel;
     JButton Bsave;
+    JButton pen;
+    JButton vhs;
             
+    JButton DELALL;
+    
             
     spa spaUML;     //PANELES SECUNDARIOS APARECIBLES
     spa spaPINT;
@@ -96,11 +103,16 @@ public class pan extends JPanel implements ActionListener{
         this.setBackground(ORANGE);
         
        
-        Bsave = new JButton("SAVE");
+        Bsave = new JButton("SAVE as IMAGE");
+        pen = new JButton("Lapiz");  
+        vhs = new JButton("  VHS   ");
+        
+        
+        DELALL = new JButton("DELETE ALL");
                 
         Buml = new JButton("UML"); Buml.setBackground(CYAN);
         Bpint = new JButton("Pint");   Bpint.setBackground(YELLOW);   //INIC JBUTTONS INIMENU
-        Bborr = new JButton("Borr");   Bborr.setBackground(GRAY);
+        Bborr = new JButton("File");   Bborr.setBackground(GRAY);
         Bselc = new JButton("Selc");   Bselc.setBackground(WHITE);
         Bmath = new JButton("Math");   Bmath.setBackground(BLUE);
         Brule = new JButton("Rule");   Brule.setBackground(GREEN);
@@ -157,10 +169,16 @@ public class pan extends JPanel implements ActionListener{
         
   
         Scuadro = new JButton("cua");
+        Sdeselec = new JButton("deselec");
+        Sdelete = new JButton("DELETE");
+        Sretomar = new JButton("retomar");
+        
+        
+        
         
         cbox = new JButton("BOX");
         
-        UMLpen = new JButton("Edit");
+        UMLpen = new JButton("Edit Text");
        
         
         
@@ -202,15 +220,19 @@ public class pan extends JPanel implements ActionListener{
         rn.addActionListener(this);
         
         Scuadro.addActionListener(this);
+        Sdeselec.addActionListener(this);
+        Sdelete.addActionListener(this);
+        Sretomar.addActionListener(this);
+        
         cbox.addActionListener(this);
         UMLpen.addActionListener(this);
         
         
         Bsave.addActionListener(this);
+        pen.addActionListener(this);
+        vhs.addActionListener(this);
         
-        
-        
-        
+        DELALL.addActionListener(this);
         
         
         
@@ -227,6 +249,8 @@ public class pan extends JPanel implements ActionListener{
         tlis arrows = new tlis(2,4);
         
         spaUML.setLayout(new FlowLayout());
+        spaSELC.setLayout(new FlowLayout());
+        spaBORR.setLayout(new FlowLayout());
         arrows.add(l);
         arrows.add(fi);
         arrows.add(fg);
@@ -241,23 +265,31 @@ public class pan extends JPanel implements ActionListener{
         spaUML.add(UMLpen);
         
         spaSELC.add(Scuadro);
- 
-        
+        spaSELC.add(Sdeselec);
+        spaSELC.add(Sdelete);
+       // spaSELC.add(Sretomar);
+       spaBORR.add(Bsave);
+       spaBORR.add(DELALL);
+      
+        spaBORR.setBackground(darkGray);
+        spaSELC.setBackground(WHITE);
         spaPINT.setBackground(BLUE);
+        
         spaPINT.setLayout(new FlowLayout(3));
         FlowLayout fint = (FlowLayout) spaPINT.getLayout();
         fint.setHgap(20);
         spa P1 = new spa();
         spaPINT.add(P1);
         P1.add(rojo);
-        P1.add(new JButton("petroleo"));
-        P1.add(Bsave);
+       
+        P1.add(pen);
+       // P1.add(Bsave);
         
         spa P2 = new spa();
         P2.setAlignmentX(2f);
         P2.setAlignmentY(3);
         spaPINT.add(P2);
-        P2.add(new JButton("persom"));
+        P2.add(vhs);
         P2.add(new JButton("perrito"));
         tlis P3 = new tlis(2,1);
         spaPINT.add(P3);   
@@ -360,7 +392,8 @@ public class pan extends JPanel implements ActionListener{
          repaint();
      }
          if(e.getSource() == Buml){ add(spaUML); System.out.println("fff"); revalidate();}
-         if(e.getSource() == Bpint){ add(spaPINT); System.out.println("faf"); revalidate();}
+         if(e.getSource() == Bpint){ add(spaPINT); System.out.println("faf"); revalidate();
+         VIP.hj.MODE = 0; VIP.hj.sele = new Selector(VIP.hj); VIP.repaint();}
          if(e.getSource() == Bborr){ add(spaBORR); System.out.println("fff"); revalidate();}
          if(e.getSource() == Bselc){ add(spaSELC); System.out.println("fff"); revalidate();}
          if(e.getSource() == Bmath){ add(spaMATH); System.out.println("fff"); revalidate();}
@@ -377,7 +410,7 @@ public class pan extends JPanel implements ActionListener{
          if(e.getSource() == gris){VIP.hj.tarro = Color.gray;}
          if(e.getSource() == grisc){VIP.hj.tarro = Color.lightGray;}
          if(e.getSource() == blanco){VIP.hj.tarro = Color.white;}
-         if(e.getSource() == rosado){VIP.hj.tarro = Color.pink; VIP.hj.MODE = 0;}
+         if(e.getSource() == rosado){VIP.hj.tarro = Color.pink;}
          
          if(e.getSource() == l ){lin.MODE = 1;}
          if(e.getSource() == fi){lin.MODE = 2;}
@@ -390,10 +423,23 @@ public class pan extends JPanel implements ActionListener{
          
          
          
-         if(e.getSource() == Scuadro){VIP.hj.MODE = 60;}
+         if(e.getSource() == Scuadro){VIP.hj.sele = new Selector(VIP.hj); VIP.hj.umlselector = new UMLselector(VIP.hj);
+         VIP.hj.MODE = 60; VIP.repaint();
+         
+         }
+         if(e.getSource() == Sdeselec){VIP.hj.MODE = 0; VIP.hj.sele = new Selector(VIP.hj);
+         VIP.hj.umlselector = new UMLselector(VIP.hj);
+         VIP.repaint();
+         
+         }
+         if(e.getSource() == Sdelete){VIP.hj.sele.ELIMINAR(); VIP.hj.sele = new Selector(VIP.hj); 
+         VIP.hj.umlselector.ELIMINAR(); VIP.hj.umlselector = new UMLselector(VIP.hj);
+         VIP.repaint();}
+        // if(e.getSource() == Sretomar){lin.MODE = 60;}
          
          if(e.getSource() == cbox){VIP.hj.MODE = 10;}
          if(e.getSource() == UMLpen){VIP.hj.MODE = 14;}
+         if(e.getSource() == vhs){VIP.hj.MODE = 22;}
          
          
          
@@ -401,14 +447,14 @@ public class pan extends JPanel implements ActionListener{
          
          
          
-         
-         if(e.getSource() == Ariel){ lin.Multi = !lin.Multi; lin.tarro = Color.black;}
+         if(e.getSource() == Ariel){ lin.MODE = 25;}
          
          if(e.getSource() == Bsave){ VIP.hj.SaveImage();}
-
-         
+         if(e.getSource() == pen){VIP.hj.MODE = 0;}
+         if(e.getSource() == DELALL){VIP.hj.DELETE_ALL_DRAWINGS(); repaint();}
       
-      
+        // if(e.getSource() == Bmath){VIP.newtab();}
+        // if(e.getSource() == Brule){VIP.returntomonke();}
       
 }
 
@@ -416,7 +462,9 @@ public class pan extends JPanel implements ActionListener{
      
      
      
-
+/**
+ * Secondary panel 
+ */
 class spa extends JPanel {
     
     JButton JB;
@@ -442,6 +490,9 @@ class spa extends JPanel {
     
 }
 
+/**
+ * Grid Panel
+ */
 class tlis extends JPanel{
 
    public tlis(int FILA,int COLU){
@@ -453,13 +504,7 @@ class tlis extends JPanel{
    }
 }
 
-class fvi extends JFrame{
-    
-    public fvi(){
-        setVisible(true);
-        
-        
-    }}
+
 
 
 

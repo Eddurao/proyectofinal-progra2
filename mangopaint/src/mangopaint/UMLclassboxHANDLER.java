@@ -8,7 +8,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 /**
- *
+ * manejador, administrador, dibujador de cajas de clase UML
  * @author eparr
  */
 public class UMLclassboxHANDLER {
@@ -49,7 +49,10 @@ public class UMLclassboxHANDLER {
     
 
 
-    
+    /**
+     * Dibuja todas las cajas de clase UML
+     * @param g Graphics en donde dibujar 
+     */
      public void showUMLclassboxes(Graphics g){
          
         
@@ -87,9 +90,11 @@ public class UMLclassboxHANDLER {
      
      
      
-     /*
-     *
-     */
+     /**
+      * Muestra en vivo la construccion de la caja de clase UML (mouse moved)
+      * @param g Graphics en donde dibujar
+      * @param rep Lienzo en donde se dibuja
+      */
      public void UMLliveshow(Graphics g, lin rep){if(!click){ 
         
          UMLclassbox cubox = (cboxAL.get(cboxAL.size()-1));
@@ -156,6 +161,9 @@ public class UMLclassboxHANDLER {
      
      }
      
+     /**
+      * Añade una linea a la zona seleccionada de la caja clase UML seleccionada por UMLsetoedit
+      */
      public void TextAddLine(){
      
      (cboxAL.get(editID)).addLine(zoneID);
@@ -164,6 +172,34 @@ public class UMLclassboxHANDLER {
      }
      
      
+     public void QuitChar(){
+         
+        
+         (cboxAL.get(editID)).quitChar(zoneID, filaID);
+     
+         
+         
+     }
+     
+     
+     /**
+      * future use in newest versions
+      */
+     public void TextQuitLine(){
+         
+         
+         (cboxAL.get(editID)).addLine(zoneID);
+         filaID --;
+         
+     }
+     
+     
+     
+     
+     /**
+      * Cambia de fila solo si se puede
+      * @param UP_or_DOWN TRUE: SUBIR  FALSE: BAJAR
+      */
      public void trytochangerow( boolean UP_or_DOWN){
          
          int cuRows = (cboxAL.get(editID)).getRows(zoneID);

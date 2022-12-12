@@ -5,7 +5,7 @@
 package mangopaint;
 
 /**
- *
+ * El panel de dibujo. Aqui se mostrara y se dibujaran todos los trazos, UML, etc
  */ // @author eparr
 
 //import java.awt.Graphics2D;
@@ -55,6 +55,7 @@ public class lin extends JPanel   //lin for LIENZO
     public UMLarrowDRAWER umlAD;
     public UMLclassboxHANDLER umlCBH;
     public key kin;
+    public UMLselector umlselector;
 //public Graphics g;
    
   // CONSTRUCTOR
@@ -77,6 +78,7 @@ public class lin extends JPanel   //lin for LIENZO
       // AQUI NO FUNCIONA setUpDrawingGraphics(); // !!!!!!!!
      
       sele = new Selector(this);
+      umlselector = new UMLselector(this);
       umlAD = new UMLarrowDRAWER(this);
       umlCBH = new UMLclassboxHANDLER();
       este = this;
@@ -93,6 +95,17 @@ public class lin extends JPanel   //lin for LIENZO
      
   } //CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-CONSTRUCTOR-
 
+  
+  public void DELETE_ALL_DRAWINGS(){
+        MASTERddarray = new ArrayList<>();
+      
+      
+      
+      
+  }
+  
+  
+  
   // METHOD
   public void paintComponent(Graphics g){
     super.paintComponent(g); //setUpDrawingGraphics();   FUNCIONA AQUI :)
@@ -101,12 +114,7 @@ public class lin extends JPanel   //lin for LIENZO
     
     //TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE ini
     
-    UMLclassbox cbox = new UMLclassbox();
-    cbox.x = 100;
-    cbox.y = 100;
-    cbox.xa = 400;
-    cbox.ya = 400;
-    cbox.showclassbox(g);
+   
     
     
     
@@ -116,10 +124,11 @@ public class lin extends JPanel   //lin for LIENZO
     //TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE TEST ZONE end
     
     umlCBH.showUMLclassboxes(g);
-    
+    umlselector.showSelector(g);
     //if(MODE == 60){g.drawRect(cx, cy,ux-cx, uy-cy); g.drawRect(cx+1, cy+1,ux-cx, uy-cy);}
    
     sele.showSelector(g);
+    
     umlAD.showUMLarrows(g);
     
     for(int ide =0; ide < MASTERddarray.size() ; ide++){
@@ -132,7 +141,7 @@ public class lin extends JPanel   //lin for LIENZO
     if(MASTERddarray.size() > 2){
         DrawData tama = MASTERddarray.get(MASTERddarray.size()-1);
         int tamaño = tama.RECx1.size();
-        g.fillOval(tama.RECx1.get(tamaño-1), tama.RECy1.get(tamaño-1), 60, 60);
+       // g.fillOval(tama.RECx1.get(tamaño-1), tama.RECy1.get(tamaño-1), 60, 60);
     }//if
    
    
@@ -146,7 +155,10 @@ public class lin extends JPanel   //lin for LIENZO
   //void setOpIndex(int i) {
     //    opIndex = i;
     //}
-  
+  /**
+   * Desplega panel para elejir ruta y
+   * Renderiza y guarda dibujo como imagen JPG
+   */
 public void SaveImage() {
     
              /* Save the filtered image in the selected format.
@@ -176,6 +188,12 @@ public void SaveImage() {
             
 
 // ATENTION: USABA g ENVEZ DE g2d !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ERROR FIXED ????
+
+/**
+ * Convierte el panel de dibujo a imagen
+ * @param panel panel para convertir a imagen
+ * @return 
+ */
 public BufferedImage createImage(JPanel panel) {
 
     panel.invalidate();
@@ -204,22 +222,29 @@ public BufferedImage createImage(JPanel panel) {
   
            
   
-  
+  /**
+   * Devuelve Numero aleatorio entre los dos numeros indicados
+   * @param i cota inferior
+   * @param top cota superior
+   * @return numero aleatorio entre i y top
+   */
   public int Rint(int i, int top){
     int diff = top - i;
     int R = (int)(i + Math. random()*diff+1);
     return(R);
   }
   
+ 
   
-  public void LGBT(){
+  
+   public void MULTICOLOR(Graphics g){
       switch(Rint(0,7)){
-          case 1: tarro=Color.red; break;
-          case 2: tarro=Color.orange; break;
-          case 3: tarro=Color.yellow; break;
-          case 4: tarro=Color.green; break;
-          case 5: tarro=Color.blue; break;
-          case 6: tarro=Color.magenta; break;
+          case 1: g.setColor(Color.red);break;
+          case 2: g.setColor(Color.orange);break;
+          case 3: g.setColor(Color.yellow);break;
+          case 4: g.setColor(Color.green);break;
+          case 5: g.setColor(Color.blue);break;
+          case 6: g.setColor(Color.magenta);break;
       }
       
       
@@ -228,14 +253,18 @@ public BufferedImage createImage(JPanel panel) {
   
   
   
-  
-  
-  
+  /**
+   * inicializa g
+   */
   public void setUpDrawingGraphics()
   {
     g = getGraphics();
   }
 
+  /**
+   * funcion en desuso
+   * @return BufferedImage
+   */
     private BufferedImage getMyImage() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -247,6 +276,10 @@ public BufferedImage createImage(JPanel panel) {
     
     
   // INNER CLASS
+    
+    /**
+     * Clase para escuchar al MOUSE
+     */
   private class MyMouseHandler extends MouseAdapter
   { 
       
@@ -267,10 +300,12 @@ public BufferedImage createImage(JPanel panel) {
       x2=x1;
       y2=y1;
       
-     if(MODE==0){ grab = new DrawData();
+     if(MODE==0 || MODE == 25 || MODE == 22){ grab = new DrawData();
       MASTERddarray.add(grab);
       }//0
+     
      sele.showSelector(getGraphics());
+     umlselector.showSelector(getGraphics());       //no lo creo necesario peroooo....
      
      if(0 < MODE  &&  MODE < 9){umlAD.setPoint(); }    //error capsioso tenia doble } y no la vi
      if( MODE == 10){umlCBH.createClassBox();}
@@ -286,27 +321,54 @@ public BufferedImage createImage(JPanel panel) {
       if(MODE == 0){ //0  
         
       
-      grab.RECcord(x1, y1, x2, y2, tarro);
+      grab.RECcord(x1, y1, x2, y2, tarro, 0);
       
-      System.out.println("" + x1 + " Y: " + y1);  
+      
       
       g.setColor(tarro);
       g.drawLine(x1,y1,x2,y2);
       
       
-      g.drawLine(x1+1, y1+1, x2+1, y2+1); g.setColor(Color.red);
-      g.drawLine(x1+2, y1+2, x2+2, y2+2);  g.setColor(Color.orange);
-      g.drawLine(x1+3, y1+3, x2+3, y2+3);  g.setColor(Color.yellow);
-      g.drawLine(x1+4, y1+4, x2+4, y2+4);  g.setColor(Color.blue);
+     
             //vhs mode
       // g.fillOval(x1, y1, 50, 50);
      // g.drawRect(x1,y1,Rint(0,50),Rint(0,50));
      
      
      // g.drawImage(i2.getImage(),x1,y1,20,Rint(0,40),null);
-      if(Multi){LGBT();}
+      
       
       }//0
+      
+      if(MODE == 25){
+         grab.RECcord(x1, y1, x2, y2, tarro, 25);
+         g.drawLine(x1,y1,x2,y2);
+        
+         MULTICOLOR(g);
+  
+         
+      
+      }
+      
+      if(MODE == 22){
+          
+         grab.RECcord(x1, y1, x2, y2, tarro, 22);
+          
+         g.setColor(tarro);
+         g.drawLine(x1, y1, x2, y2);
+          g.drawLine(x1+1, y1+1, x2+1, y2+1); g.setColor(Color.red);
+      g.drawLine(x1+2, y1+2, x2+2, y2+2);  g.setColor(Color.orange);
+      g.drawLine(x1+3, y1+3, x2+3, y2+3);  g.setColor(Color.yellow);
+      g.drawLine(x1+4, y1+4, x2+4, y2+4);  g.setColor(Color.blue);
+
+         
+         
+         
+          
+          
+          
+      }
+      
       
       if(MODE == 60){
        
@@ -340,6 +402,7 @@ public BufferedImage createImage(JPanel panel) {
     
     sele.showSelector(getGraphics());
     
+    umlselector.showSelector(getGraphics());         //deberas que selector automaticamente detecta cuando le toca.
     
     
     
