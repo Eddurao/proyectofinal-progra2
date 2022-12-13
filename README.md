@@ -1,4 +1,6 @@
 ## Proyecto Semestral - Programación II.
+
+ HECHO : LISTO PARA REVISAR.
 Tema 4: Pizarra para hacer clases web.
 Eduardo Parra __ Matias Escobar __ Tomas Rodriguez
 # Enunciado general del proyecto: 
