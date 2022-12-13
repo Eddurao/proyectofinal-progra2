@@ -12,13 +12,19 @@ package mangopaint;
 //import java.awt.BasicStroke;
 
 
+import DrawKeepers.*;
 
+import DrawKeepers.UMLarrowDRAWER;
+import DrawKeepers.UMLclassboxHANDLER;
+import EditTools.Selector;
+import EditTools.UMLselector;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import static java.lang.String.format;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -28,7 +34,7 @@ import javax.imageio.stream.ImageOutputStream;
 import java.util.*;
 
 
-public class lin extends JPanel   //lin for LIENZO
+public class lin extends JPanel implements Serializable  //lin for LIENZO
 {
   // PROPERTIES 
        //drawea botones
@@ -36,7 +42,7 @@ public class lin extends JPanel   //lin for LIENZO
     
     
     int CONTADOREC; 
-    static int cx,cy,T,ux,uy,fx,fy,mx,my;
+   public static int cx,cy,T,ux,uy,fx,fy,mx,my;
     public Graphics g;
     public static byte MODE;
     private final int DEFAULT_WIDTH  = 1200;
@@ -47,14 +53,16 @@ public class lin extends JPanel   //lin for LIENZO
     public MyMouseHandler handler;
     static Color tarro;                        
     static boolean Multi; 
+    javax.swing.Timer reloj;
     
     public Selector sele;
     public static byte MOUSESTATE;
     public lin este;
+    int pla;
     
     public UMLarrowDRAWER umlAD;
     public UMLclassboxHANDLER umlCBH;
-    public key kin;
+  // public key kin;
     public UMLselector umlselector;
 //public Graphics g;
    
@@ -67,11 +75,26 @@ public class lin extends JPanel   //lin for LIENZO
     MASTERddarray = new ArrayList<>();
     CONTADOREC = 0;
     Multi = false;
-    
+    reloj = new javax.swing.Timer(60, new ActionListener ()
+{
+    public void actionPerformed(ActionEvent e)
+    {
+      repaint();
+     }
+});
+            
+            
+            
+            
+            
+            
+            
+            
+    pla = 0;
     setBackground( BACK_COLOR ); //
     setPreferredSize( new Dimension( DEFAULT_WIDTH, DEFAULT_HEIGHT ) );
 
-    handler  = new MyMouseHandler();  kin = new key();
+    handler  = new MyMouseHandler(); // kin = new key();
 
     this.addMouseListener( handler );
     this.addMouseMotionListener( handler );
@@ -84,9 +107,9 @@ public class lin extends JPanel   //lin for LIENZO
       este = this;
       
    
-    this.addKeyListener(kin);
-      this.addKeyListener(kin);
-      this.addKeyListener(kin);
+  //  this.addKeyListener(kin);
+   //   this.addKeyListener(kin);
+   //   this.addKeyListener(kin);
       
       
      
@@ -98,13 +121,30 @@ public class lin extends JPanel   //lin for LIENZO
   
   public void DELETE_ALL_DRAWINGS(){
         MASTERddarray = new ArrayList<>();
-      
+        umlAD.arrowAL = new ArrayList<>();
+        umlCBH.cboxAL = new ArrayList<>();
       
       
       
   }
   
   
+  public ArrayList<DrawData>  StealMemo (){
+      
+     ArrayList<DrawData> copia = new ArrayList<DrawData>();
+     copia = (ArrayList<DrawData>)MASTERddarray.clone();
+     MASTERddarray = new ArrayList<DrawData>();
+      return copia;
+      
+      
+  }
+  
+  public void memoCHAN(ArrayList<DrawData> datin){
+  
+      MASTERddarray = datin;
+  
+  
+  }
   
   // METHOD
   public void paintComponent(Graphics g){
@@ -140,7 +180,7 @@ public class lin extends JPanel   //lin for LIENZO
    
     if(MASTERddarray.size() > 2){
         DrawData tama = MASTERddarray.get(MASTERddarray.size()-1);
-        int tamaño = tama.RECx1.size();
+       // int tamaño = tama.RECx1.size();
        // g.fillOval(tama.RECx1.get(tamaño-1), tama.RECy1.get(tamaño-1), 60, 60);
     }//if
    
@@ -261,6 +301,19 @@ public BufferedImage createImage(JPanel panel) {
     g = getGraphics();
   }
 
+  
+    public static void Delay(long millis){
+        long ini = System.currentTimeMillis();
+        while(System.currentTimeMillis() - ini < millis){
+            
+        }
+        
+        
+    }
+  
+  
+  
+     
   /**
    * funcion en desuso
    * @return BufferedImage
@@ -280,7 +333,7 @@ public BufferedImage createImage(JPanel panel) {
     /**
      * Clase para escuchar al MOUSE
      */
-  private class MyMouseHandler extends MouseAdapter
+  private class MyMouseHandler extends MouseAdapter implements Serializable
   { 
       
       
@@ -300,7 +353,7 @@ public BufferedImage createImage(JPanel panel) {
       x2=x1;
       y2=y1;
       
-     if(MODE==0 || MODE == 25 || MODE == 22){ grab = new DrawData();
+     if(MODE==0 || MODE == 25 || MODE == 22 || MODE == 26 || MODE == 27){ grab = new DrawData();
       MASTERddarray.add(grab);
       }//0
      
@@ -343,7 +396,9 @@ public BufferedImage createImage(JPanel panel) {
       if(MODE == 25){
          grab.RECcord(x1, y1, x2, y2, tarro, 25);
          g.drawLine(x1,y1,x2,y2);
-        
+         g.drawLine(x1+1,y1+1,x2+1,y2+1);
+         g.drawLine(x1+2,y1+2,x2+2,y2+2);
+         
          MULTICOLOR(g);
   
          
@@ -368,7 +423,46 @@ public BufferedImage createImage(JPanel panel) {
           
           
       }
-      
+       if(MODE == 26){
+                
+           grab.RECcord(x1, y1, x2, y2, tarro, 26);
+                g.setColor(tarro);
+                 g.drawLine(x1-2, y1, x2-2, y2);
+                 g.drawLine(x1-1, y1, x2-1, y2);
+                 g.drawLine(x1, y1, x2, y2);
+                 g.drawLine(x1+1, y1, x2+1, y2);
+                 g.drawLine(x1+2, y1, x2+2, y2);
+            
+                 g.drawLine(x1, y1-2, x2, y2-2);           
+                 g.drawLine(x1, y1-1, x2, y2-1);           
+                 g.drawLine(x1, y1, x2, y2);           
+                 g.drawLine(x1, y1+1, x2, y2+1);           
+                 g.drawLine(x1, y1+2, x2, y2+2);           
+            
+            
+            
+            
+            }
+        if(MODE == 27){
+                
+           grab.RECcord(x1, y1, x2, y2, tarro, 27);
+                g.setColor(tarro); int A = Rint(-10,10);
+                 g.drawLine(x1-2+A, y1+A, x2-2+A, y2+A);
+                 g.drawLine(x1-1+A, y1+A, x2-1+A, y2+A);
+                 g.drawLine(x1+A, y1+A, x2+A, y2+A);
+                 g.drawLine(x1+1+A, y1+A, x2+1+A, y2+A);
+                 g.drawLine(x1+2+A, y1+A, x2+2+A, y2+A);
+            
+                 g.drawLine(x1+A, y1-2+A, x2+A, y2-2+A);           
+                 g.drawLine(x1+A, y1-1+A, x2+A, y2-1+A);           
+                 g.drawLine(x1+A, y1+A, x2+A, y2+A);           
+                 g.drawLine(x1+A, y1+1+A, x2+A, y2+1+A);           
+                 g.drawLine(x1+A, y1+2+A, x2+A, y2+2+A);           
+            
+            
+            
+            
+            }
       
       if(MODE == 60){
        
@@ -394,7 +488,7 @@ public BufferedImage createImage(JPanel panel) {
     }//dragged
     
     
-    public void mouseReleased(MouseEvent e){ kin = new key();
+    public void mouseReleased(MouseEvent e){ // kin = new key();
     MOUSESTATE = 3;
     
     fx = e.getX();

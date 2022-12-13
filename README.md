@@ -30,4 +30,14 @@ extraño error: por alguna razon no se que hice las flechas dejaron de funcionar
 PROBLEMA TIME WASTER: (5 hrs perdidas) resulta que Keylistener se desactiva si presionas un boton
 (LA SOLUCION: agregar el key listener a un boton cualquiera, no al jpanel. nose porque pero funciona.
 
+(solucionado)PROBLEMA: Se intento hacer la funcionalidad de pantalla multiple intanciando el lienzo
+pero daba muchos errores. Entonces opte por hacer un array maestrop que contiene todos los arrays
+maestros de cada clase de dibujo 
+
+(solucionado) PROBLEMA FATAL: Graphics2D no es serializable.
+la referencia al panel hay que ponerla como valor transitivo para quitarlo antes de serializar.
+y ponerlo luego de Deserializar con una funcion set REf.
+
+Implementacion de funcionalidad de Guardado y Carga de archivos .mango (archivos propios del programa)
+
 

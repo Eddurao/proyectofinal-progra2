@@ -5,12 +5,15 @@
 package mangopaint;
 
 
+import EditTools.Selector;
+import EditTools.UMLselector;
 import javax.swing.*;
 import java.awt.*;
 import static java.awt.BorderLayout.WEST;
 import static java.awt.Color.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -37,7 +40,13 @@ public class pan extends JPanel implements ActionListener{
     
     JF VIP;
     
-   
+    JButton sasman;
+    JButton loadman;
+    
+    JButton center;
+   JButton back;
+   JButton anyadir;
+   JButton next;
     
     JButton Buml;
     JButton Bpint;
@@ -85,7 +94,9 @@ public class pan extends JPanel implements ActionListener{
     JButton Bsave;
     JButton pen;
     JButton vhs;
-            
+    JButton plumon;
+    JButton shake;
+    
     JButton DELALL;
     
             
@@ -96,17 +107,29 @@ public class pan extends JPanel implements ActionListener{
     spa spaMATH;
     spa spaRULE;
     
+    spa spa1;
+    
+    
+    
     public pan(JF jf){   
         VIP = jf;   
         FlowLayout flow = new FlowLayout(3);
         this.setLayout(flow);                      //CONFIG PRINCIPANEL
         this.setBackground(ORANGE);
         
-       
+        
+        center = new JButton("1 /1");
+        back = new JButton("<");
+        anyadir = new JButton(" + ");
+        next = new JButton(">");
+        
+        loadman = new JButton("LOAD MANGO PROYECT");
+        sasman = new JButton("SAVE as MANGO PROYECT");
         Bsave = new JButton("SAVE as IMAGE");
         pen = new JButton("Lapiz");  
         vhs = new JButton("  VHS   ");
-        
+        plumon = new JButton(" Plumón ");
+        shake = new JButton(" Shake ");
         
         DELALL = new JButton("DELETE ALL");
                 
@@ -115,7 +138,7 @@ public class pan extends JPanel implements ActionListener{
         Bborr = new JButton("File");   Bborr.setBackground(GRAY);
         Bselc = new JButton("Selc");   Bselc.setBackground(WHITE);
         Bmath = new JButton("Math");   Bmath.setBackground(BLUE);
-        Brule = new JButton("Rule");   Brule.setBackground(GREEN);
+        Brule = new JButton("Play");   Brule.setBackground(GREEN);
         
         
         rojo = new JButton(" "); rojo.setBackground(red);
@@ -179,13 +202,15 @@ public class pan extends JPanel implements ActionListener{
         cbox = new JButton("BOX");
         
         UMLpen = new JButton("Edit Text");
-       
         
         
         
         
         
         
+        back.addActionListener(this);
+        anyadir.addActionListener(this);
+        next.addActionListener(this);
         
         Buml.addActionListener(this);
         Bpint.addActionListener(this);
@@ -227,10 +252,13 @@ public class pan extends JPanel implements ActionListener{
         cbox.addActionListener(this);
         UMLpen.addActionListener(this);
         
-        
+        sasman.addActionListener(this);
+        loadman.addActionListener(this);
         Bsave.addActionListener(this);
         pen.addActionListener(this);
         vhs.addActionListener(this);
+        plumon.addActionListener(this);
+        shake.addActionListener(this);
         
         DELALL.addActionListener(this);
         
@@ -238,7 +266,7 @@ public class pan extends JPanel implements ActionListener{
         
         
         spa spaM = new spa();//PAN 6
-        spa spa1 = new spa(); //PAN MENU     
+        spa1 = new spa(); //PAN MENU     
         spaUML = new spa();     //PANELES SECUNDARIOS APARECIBLES
         spaPINT = new spa();
         spaBORR = new spa();
@@ -270,6 +298,8 @@ public class pan extends JPanel implements ActionListener{
        // spaSELC.add(Sretomar);
        spaBORR.add(Bsave);
        spaBORR.add(DELALL);
+       spaBORR.add(sasman);
+       spaBORR.add(loadman);
       
         spaBORR.setBackground(darkGray);
         spaSELC.setBackground(WHITE);
@@ -290,13 +320,16 @@ public class pan extends JPanel implements ActionListener{
         P2.setAlignmentY(3);
         spaPINT.add(P2);
         P2.add(vhs);
-        P2.add(new JButton("perrito"));
+        P2.add(plumon);
+       
+        
+       
         tlis P3 = new tlis(2,1);
         spaPINT.add(P3);   
         Ariel = new JButton("Rbow");
         Ariel.addActionListener(this);                      //tenemos un grave ERROR !!! REPAINT EN EL LIENZO
         P3.add(Ariel);
-        P3.add(new JButton("no"));
+        P3.add(shake);
         //P3.add(new JButton("hello"));
         
         
@@ -333,12 +366,15 @@ public class pan extends JPanel implements ActionListener{
         
        
         spa1.setSize(40,50);
+        spa1.setLayout(new BorderLayout());
         flow.setHgap(20);
         add(spa1);   //Panel Secundario 1   //Si dan problemas dar vuelta el add !
-        spa1.add(new JButton("transformation") );
-        spa1.add(new JButton("center"));
-        
-        
+        spa1.add(back, BorderLayout.WEST );  ///AQUUUUUIIIIIIIIIIIII
+        spa1.add(anyadir, BorderLayout.CENTER);
+        spa1.add(next, BorderLayout.EAST);
+        anyadir.setPreferredSize(new Dimension(anyadir.getPreferredSize().width,50));
+        spa1.add( center, BorderLayout.NORTH);
+       
         add(spaM);
         spaM.setLayout(new GridLayout(3,2));
         spaM.add(Buml);
@@ -362,7 +398,7 @@ public class pan extends JPanel implements ActionListener{
         
         
         
-       UMLpen.addKeyListener(VIP.kine);
+       UMLpen.addKeyListener((KeyListener) VIP.kine);
         
         //Buml.addKeyListener(VIP.kine);
  
@@ -375,7 +411,11 @@ public class pan extends JPanel implements ActionListener{
     }
     
     
-    
+   public void setBText(String ia){
+       spa1.remove(center); center.setText(ia) ; spa1.add(center, BorderLayout.NORTH);
+        
+        
+    }
     
     
     
@@ -410,7 +450,7 @@ public class pan extends JPanel implements ActionListener{
          if(e.getSource() == gris){VIP.hj.tarro = Color.gray;}
          if(e.getSource() == grisc){VIP.hj.tarro = Color.lightGray;}
          if(e.getSource() == blanco){VIP.hj.tarro = Color.white;}
-         if(e.getSource() == rosado){VIP.hj.tarro = Color.pink;}
+         if(e.getSource() == rosado){VIP.hj.tarro = Color.pink;}  //TESTER
          
          if(e.getSource() == l ){lin.MODE = 1;}
          if(e.getSource() == fi){lin.MODE = 2;}
@@ -440,9 +480,11 @@ public class pan extends JPanel implements ActionListener{
          if(e.getSource() == cbox){VIP.hj.MODE = 10;}
          if(e.getSource() == UMLpen){VIP.hj.MODE = 14;}
          if(e.getSource() == vhs){VIP.hj.MODE = 22;}
+         if(e.getSource() == shake){VIP.hj.MODE = 27;}
          
-         
-         
+         if(e.getSource() == back){VIP.MASTER_MEMORY_MANAGER.BACKpage(); VIP.repaint();}
+         if(e.getSource() == anyadir){VIP.MASTER_MEMORY_MANAGER.SAVEone(); VIP.repaint();}
+         if(e.getSource() == next){VIP.MASTER_MEMORY_MANAGER.NEXTpage(); VIP.repaint();}
          
          
          
@@ -451,10 +493,29 @@ public class pan extends JPanel implements ActionListener{
          
          if(e.getSource() == Bsave){ VIP.hj.SaveImage();}
          if(e.getSource() == pen){VIP.hj.MODE = 0;}
-         if(e.getSource() == DELALL){VIP.hj.DELETE_ALL_DRAWINGS(); repaint();}
+         if(e.getSource() == plumon){VIP.hj.MODE = 26;}
+         if(e.getSource() == DELALL){VIP.hj.DELETE_ALL_DRAWINGS(); VIP.hj.repaint();}
       
-        // if(e.getSource() == Bmath){VIP.newtab();}
-        // if(e.getSource() == Brule){VIP.returntomonke();}
+         if(e.getSource() == Bmath){
+             
+          
+         
+         
+         } 
+         if(e.getSource() == sasman){ VIP.MASTER_MEMORY_MANAGER.SAVEone(); VIP.fileman.guardar();     }
+         if(e.getSource() == loadman){  VIP.fileman.cargar();     }
+         
+         
+         if(e.getSource() == Brule){ 
+            
+             
+             if(VIP.hj.pla == 0){
+             VIP.hj.reloj.start(); VIP.hj.pla = 1; Brule.setBackground(red); Brule.setText("Stop"); 
+             }else{VIP.hj.reloj.stop(); VIP.hj.pla = 0;  Brule.setBackground(green); Brule.setText("Play"); }
+            
+             
+             Bpint.doClick();
+         }
       
 }
 

@@ -4,27 +4,37 @@
  */
 package mangopaint;
 
+import EditTools.key;
+import MemoryManagers.M4;
+import MemoryManagers.MMM;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  *
  * @author eparr
  */
-public class JF extends JFrame {
+public class JF extends JFrame implements Serializable {
     
-    pan pc;
-    lin hj;       key kine;      lin h2; lin h3;
-
-   // ArrayList<lin> MMM = new ArrayList<>();
+   public pan pc;
+    public lin hj;      
+        
+        key kine;     
+        
+        lin h2; lin h3;
+     public   MMM MASTER_MEMORY_MANAGER;
+       public M4 fileman;
+   
     public JF(){
         super();
         setVisible(true);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(3);
         setTitle("MangoPaint");
+        
         
          ImageIcon i = new ImageIcon("src/img/mango22.png");   //drawea fondo
         
@@ -35,10 +45,10 @@ public class JF extends JFrame {
         kine = new key(); kine.setJF(this);
       
           
-        h2 = new lin(); h3 = new lin();
+       // h2 = new lin(); h3 = new lin();
         
         pc = new pan(this); 
-        hj = new lin();                             
+        hj = new lin();              MASTER_MEMORY_MANAGER = new MMM(this);  fileman = new M4(this);             
         add(pc ,BorderLayout.NORTH);        
         add(hj ,BorderLayout.CENTER);          
         hj.setIgnoreRepaint(false);       
@@ -51,12 +61,9 @@ public class JF extends JFrame {
         
        
         
-   
-        
-        
-        
-        
-        
+     // add(h2);
+      //add(h3);
+      
         
         
         
@@ -70,11 +77,11 @@ public class JF extends JFrame {
         
         
         
-        
+        setLocation(20,4);
         setSize(1200,600); // setSize va al final porque ponerlo al principi causa leves errores
         
         
-        
+        Welcome bien = new Welcome();
         //Aqui no funcionara el hj.setUpDrawingGraphics(); almenos si te guarda bien los datos draw
     }
     
@@ -85,7 +92,9 @@ public class JF extends JFrame {
     
     
     
-    
+      
+     
+        
     
     
     
